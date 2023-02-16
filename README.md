@@ -1,10 +1,10 @@
 # CG 2022/2023
 
 ## Group T0xG0y
-| Name             | Number    | E-Mail             |
-| ---------------- | --------- | ------------------ |
-| John Doe         | 201901010 | ...                |
-| Jane Doe         | 201901011 | ...                |
+| Name                                      | Number    | E-Mail                                  |
+| ----------------------------------------- | --------- | --------------------------------------- |
+| João Francisco Ferreira Maldonado         | 202004244 | up202004244@edu.fe.up.pt                |
+| Tomás Pereira Matos Gomes                 | 202004393 | up202004393@edu.fe.up.pt                |
 
 ----
 
