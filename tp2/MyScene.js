@@ -6,6 +6,7 @@ import { MyTriangleBig } from "./MyTriangleBig.js";
 import { MyTriangleSmall } from "./MyTriangleSmall.js";
 import { MyTangram } from "./MyTangram.js";
 import { MyUnitCube } from "./MyUnitCube.js";
+import { MyUnitCubeQuad } from "./MyUnitCubeQuad.js";
 
 /**
  * MyScene
@@ -38,6 +39,7 @@ export class MyScene extends CGFscene {
     this.bigTriangle = new MyTriangleBig(this);
     this.myTangram = new MyTangram(this);
     this.myUnitCube = new MyUnitCube(this);
+    this.myUnitCubeQuad = new MyUnitCubeQuad(this);
 
     //Objects connected to MyInterface
     this.displayAxis = true;
@@ -117,21 +119,13 @@ export class MyScene extends CGFscene {
     this.pushMatrix();
     this.translate(0.2, -0.4, -0.51);
     this.scale(6.4, 6.4, 1.0);
-    this.myUnitCube.display();
+    this.myUnitCubeQuad.display();
     this.popMatrix();
 
     this.myTangram.display();
 
     this.popMatrix();
 
-
-    /*
-    if (this.displayDiamond) this.diamond.display();
-    if (this.displayTriangle) this.triangle.display();
-    if (this.displayParallelogram) this.parallelogram.display();
-    if (this.displaySmallTriangle) this.smallTriangle.display();
-    if (this.displayBigTriangle) this.bigTriangle.display();
-    */
     // ---- END Primitive drawing section
   }
 }
