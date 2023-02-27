@@ -5,8 +5,8 @@
 ## TP 2 Notes
 
 
-![Screenshot 1](screenshots/CG-t04g10-tp2-1.png)
-![Screenshot 2](screenshots/CG-t04g10-tp2-2.png)
-![Screenshot 3](screenshots/CG-t04g10-tp2-3.png)
+![Screenshot 1](screenshots/cg-t04g10-tp2-1.png)
+![Screenshot 2](screenshots/cg-t04g10-tp2-2.png)
+![Screenshot 3](screenshots/cg-t04g10-tp2-3.png)
 
 
