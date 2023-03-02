@@ -19,12 +19,11 @@ export class MyInterface extends CGFinterface {
 
         //Checkbox element in GUI
         this.gui.add(this.scene, 'displayAxis').name('Display Axis');
-
-        //Slider element in GUI
-        this.gui.add(this.scene, 'scaleFactor', 0.1, 5).name('Scale Factor');
-
-        //Triangle Big checkbox
-        this.gui.add(this.scene, 'displayTangram').name('Display Tangram');
+        this.gui.add(this.scene,'displayDiamond').name('Diamond');
+        this.gui.add(this.scene,'displayTriangle').name('Triangle');
+        this.gui.add(this.scene,'displayParallelogram').name('Parallelogram');
+        this.gui.add(this.scene,'displaySmallTriangle').name('Small Triangle');
+        this.gui.add(this.scene,'displayBigTriangle').name('Big Triangle');
 
         return true;
     }

@@ -1,11 +1,12 @@
 import { CGFscene, CGFcamera, CGFaxis } from "../lib/CGF.js";
 import { MyDiamond } from "./MyDiamond.js";
-import { MyTriangle } from "./MyTriangle.js";
 import { MyParallelogram } from "./MyParallelogram.js";
-import { MyTriangleSmall } from "./MyTriangleSmall.js";
+import { MyTriangle } from "./MyTriangle.js";
 import { MyTriangleBig } from "./MyTriangleBig.js";
+import { MyTriangleSmall } from "./MyTriangleSmall.js";
 import { MyTangram } from "./MyTangram.js";
 import { MyUnitCube } from "./MyUnitCube.js";
+import { MyUnitCubeQuad } from "./MyUnitCubeQuad.js";
 
 /**
  * MyScene
@@ -31,12 +32,22 @@ export class MyScene extends CGFscene {
 
     //Initialize scene objects
     this.axis = new CGFaxis(this);
-    this.tangram = new MyTangram(this);
-    this.cube = new MyUnitCube(this);
+    this.diamond = new MyDiamond(this);
+    this.triangle = new MyTriangle(this);
+    this.parallelogram = new MyParallelogram(this);
+    this.smallTriangle = new MyTriangleSmall(this); 
+    this.bigTriangle = new MyTriangleBig(this);
+    this.myTangram = new MyTangram(this);
+    this.myUnitCube = new MyUnitCube(this);
+    this.myUnitCubeQuad = new MyUnitCubeQuad(this);
 
     //Objects connected to MyInterface
     this.displayAxis = true;
-    this.displayTangram = true;
+    this.displayDiamond = true;
+    this.displayTriangle = true;
+    this.displayParallelogram = true;
+    this.displaySmallTriangle = true;
+    this.displayBigTriangle = true;
     this.scaleFactor = 1;
   }
   initLights() {
@@ -61,6 +72,7 @@ export class MyScene extends CGFscene {
     this.setShininess(10.0);
   }
   display() {
+
     // ---- BEGIN Background, camera and axis setup
     // Clear image and depth buffer everytime we update the scene
     this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
@@ -97,12 +109,23 @@ export class MyScene extends CGFscene {
 
     this.multMatrix(sca);
 
-
     // ---- BEGIN Primitive drawing section
 
-    //if (this.displayTangram) this.tangram.display();
-    this.cube.display();
+    // paralelo ao plano xz
+    this.pushMatrix();
+    this.rotate(-Math.PI/2,1,0,0);
+    this.translate(3,-2.8,0);
 
+    // unit cube 
+    this.pushMatrix();
+    this.translate(0.2, -0.4, -3.21);
+    this.scale(6.4, 6.4, 6.4);
+    this.myUnitCubeQuad.display();
+    this.popMatrix();
+
+    this.myTangram.display();
+
+    this.popMatrix();
 
     // ---- END Primitive drawing section
   }

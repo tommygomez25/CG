@@ -1,6 +1,6 @@
 # CG 2022/2023
 
-## Group T0xG0y
+## Group T04G10
 | Name                                      | Number    | E-Mail                                  |
 | ----------------------------------------- | --------- | --------------------------------------- |
 | João Francisco Ferreira Maldonado         | 202004244 | up202004244@edu.fe.up.pt                |
