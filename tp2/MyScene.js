@@ -7,6 +7,7 @@ import { MyTriangleSmall } from "./MyTriangleSmall.js";
 import { MyTangram } from "./MyTangram.js";
 import { MyUnitCube } from "./MyUnitCube.js";
 import { MyUnitCubeQuad } from "./MyUnitCubeQuad.js";
+import { MyQuad } from "./MyQuad.js";
 
 /**
  * MyScene
@@ -40,6 +41,7 @@ export class MyScene extends CGFscene {
     this.myTangram = new MyTangram(this);
     this.myUnitCube = new MyUnitCube(this);
     this.myUnitCubeQuad = new MyUnitCubeQuad(this);
+    this.unitQuad = new MyQuad(this);
 
     //Objects connected to MyInterface
     this.displayAxis = true;
@@ -110,6 +112,8 @@ export class MyScene extends CGFscene {
 
     // ---- BEGIN Primitive drawing section
 
+    this.unitQuad.display();
+    /*
     // paralelo ao plano xz
     this.pushMatrix();
     this.rotate(-Math.PI/2,1,0,0);
@@ -125,6 +129,7 @@ export class MyScene extends CGFscene {
     this.myTangram.display();
 
     this.popMatrix();
+    */
 
     // ---- END Primitive drawing section
   }
