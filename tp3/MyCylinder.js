@@ -42,11 +42,10 @@ export class MyCylinder extends CGFobject {
                 var caa_1=Math.cos(ang);  
 
                 //this.vertices.push(0, 1, 0);
-                
-                    this.vertices.push(ca, -sa, (j+1)*stackHeight);
-                    this.vertices.push(ca,-sa, j*stackHeight);
-                    this.vertices.push(caa, -saa, j*stackHeight);
-                    this.vertices.push(caa, -saa, (j+1)*stackHeight);
+                this.vertices.push(ca, -sa, (j+1)*stackHeight);
+                this.vertices.push(ca,-sa, j*stackHeight);
+                this.vertices.push(caa, -saa, j*stackHeight);
+                this.vertices.push(caa, -saa, (j+1)*stackHeight);
                 
 
                 // triangle normal computed by cross product of two edges
@@ -102,19 +101,14 @@ export class MyCylinder extends CGFobject {
                 normal_[2]/=nsize_;
 
                 // push normal once for each vertex of this triangle
+                this.normals.push(...normal_);
+                this.normals.push(...normal_);
+                this.normals.push(...normal);
+                this.normals.push(...normal);
+            
+                this.indices.push(4*(i) + 4*j*this.slices + 2, 4*(i) + 4*j*this.slices + 1, 4*(i) + 4*j*this.slices);
+                this.indices.push(4*(i) + 4*j*this.slices + 3, 4*(i) + 4*j*this.slices + 2, 4*(i) + 4*j*this.slices);
                 
-                    this.normals.push(...normal_);
-                    this.normals.push(...normal_);
-                    this.normals.push(...normal);
-                    this.normals.push(...normal);
-                
-                
-                
-                    this.indices.push(4*(i) + 4*j*this.slices + 2, 4*(i) + 4*j*this.slices + 1, 4*(i) + 4*j*this.slices);
-                    this.indices.push(4*(i) + 4*j*this.slices + 3, 4*(i) + 4*j*this.slices + 2, 4*(i) + 4*j*this.slices);
-                
-                
-
                 ang+=alphaAng;
             }
             //print vertices and indices
