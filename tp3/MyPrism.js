@@ -37,7 +37,6 @@ export class MyPrism extends CGFobject {
                 this.vertices.push(ca,-sa, j*stackHeight);
                 this.vertices.push(caa, -saa, j*stackHeight);
                 this.vertices.push(caa, -saa, (j+1)*stackHeight);
-                console.log('j*sH: ', j*stackHeight, ' (j+1)*sH: ', (j+1)*stackHeight)
 
                 // triangle normal computed by cross product of two edges
                 var normal= [
