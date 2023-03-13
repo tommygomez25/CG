@@ -25,14 +25,11 @@ export class MyPyramid extends CGFobject {
             // All vertices have to be declared for a given face
             // even if they are shared with others, as the normals 
             // in each face will be different
-
+            
             var sa=Math.sin(ang);
             var saa=Math.sin(ang+alphaAng);
             var ca=Math.cos(ang);
             var caa=Math.cos(ang+alphaAng);
-
-            console.log("ang = " + ang + " sa = " + sa + " ca = " + ca);
-            console.log("ang+alphaAng = " + (ang+alphaAng) + " saa = " + saa + " caa = " + caa);
 
             this.vertices.push(0,1,0);
             this.vertices.push(ca, 0, -sa);
@@ -58,7 +55,7 @@ export class MyPyramid extends CGFobject {
             // push normal once for each vertex of this triangle
             this.normals.push(...normal);
             this.normals.push(...normal);
-            this.normals.push(...normal);
+            this.normals.push(...normal);            
 
             this.indices.push(3*i, (3*i+1) , (3*i+2) );
 

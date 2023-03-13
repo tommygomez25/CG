@@ -20,9 +20,6 @@ export class MyInterface extends CGFinterface {
         this.gui.add(this.scene, 'displayAxis').name("Display axis");
         this.gui.add(this.scene, 'displayNormals').name("Display normals");
 
-        // slider to control ambient light intensity
-        this.gui.add(this.scene, 'ambientIntensity', 0, 1).name("Ambient Intensity").onChange(this.scene.updateAmbientIntensity.bind(this.scene));
-
         // example of a dropdown that has numeric ID's associated, 
         // and an event handler to be called when the selection changes
         this.gui.add(this.scene, 'selectedObject', this.scene.objectIDs).name('Selected Object').onChange(this.scene.updateObjectComplexity.bind(this.scene));
@@ -31,6 +28,9 @@ export class MyInterface extends CGFinterface {
         this.gui.add(this.scene, 'objectComplexity', 0.01, 1.0).onChange(this.scene.updateObjectComplexity.bind(this.scene));
 
         this.gui.add(this.scene, 'selectedMaterial', this.scene.materialIDs).name('Selected Material');
+
+        // ambient light slider
+        this.gui.add(this.scene, 'ambientLight', 0.01, 1.0).onChange(this.scene.updateAmbientLight.bind(this.scene));
 
         // a folder for grouping parameters for one of the lights
         var f0 = this.gui.addFolder('Light 0 ');
