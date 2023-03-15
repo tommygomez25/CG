@@ -73,6 +73,7 @@ export class MyPrism extends CGFobject {
         }
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
+        console.log(this.vertices)
 	}
     /**
      * Called when user interacts with GUI to change object's complexity.

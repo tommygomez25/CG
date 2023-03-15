@@ -46,7 +46,6 @@ export class MyCylinder extends CGFobject {
                 var index1 = vertexMap.get(`${ca}-${-sa}-${j*stackHeight}`);
                 if (index1 === undefined) {
                     this.vertices.push(ca, -sa, j*stackHeight);
-                    // push only index 0,1 and 2 of normalss
                     this.normals.push(normalss[0], normalss[1], normalss[2]);
                     index1 = index++;
                     vertexMap.set(`${ca}-${-sa}-${j*stackHeight}`, index1);
@@ -78,14 +77,17 @@ export class MyCylinder extends CGFobject {
                 
 
 
-                // create prism indexes
+                // create prism indexes in and out
                 this.indices.push(index1, index2, index3);
                 this.indices.push(index3, index2, index4);
+                this.indices.push(index3, index2, index1);
+                this.indices.push(index4, index2, index3);
 
                 ang += alphaAng;
             }
         }
 
+    console.log(this.vertices)
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();
 }
