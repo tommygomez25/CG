@@ -28,6 +28,12 @@ export class MyInterface extends CGFinterface {
         //Checkbox to enable/disable the display of object myDiamond (MyDiamond)
         this.gui.add(this.scene, 'displayTangram').name('Display Tangram');
 
+        //Checkbox to enable/disable the display of object myUnitCubeQuad (MyUnitCubeQuad)
+        this.gui.add(this.scene, 'displayUnitQuad').name('Display UnitQuad');
+
+        //Checkbox to enable/disable nearest filter for textures
+        this.gui.add(this.scene,'nearestFilter').name('Nearest Filter');
+
         //Dropdown for textures
         this.gui.add(this.scene, 'selectedTexture', this.scene.textureIds).name('Selected Texture').onChange(this.scene.updateAppliedTexture.bind(this.scene));
         //Dropdown for wrapping (S)

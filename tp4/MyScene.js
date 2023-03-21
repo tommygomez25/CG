@@ -1,6 +1,7 @@
 import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFtexture } from "../lib/CGF.js";
 import { MyQuad } from "./MyQuad.js";
 import { MyTangram } from "./MyTangram.js";
+import { MyUnitCubeQuad } from "./MyUnitCubeQuad.js";
 /**
  * MyScene
  * @constructor
@@ -28,6 +29,14 @@ export class MyScene extends CGFscene {
         this.axis = new CGFaxis(this);
         this.quad = new MyQuad(this);
         this.tangram = new MyTangram(this);
+        this.unitQuad = new MyUnitCubeQuad(this,'images/mineTop.png', 'images/mineSide.png', 'images/mineSide.png', 'images/mineSide.png', 'images/mineSide.png', 'images/mineBottom.png');
+
+
+        //------ Textures
+        this.texture1 = new CGFtexture(this, 'images/board.jpg');
+        this.texture2 = new CGFtexture(this, 'images/floor.png');
+        this.texture3 = new CGFtexture(this, 'images/window.jpg');
+        //-------
 
         //------ Applied Material
         this.quadMaterial = new CGFappearance(this);
@@ -38,18 +47,16 @@ export class MyScene extends CGFscene {
         this.quadMaterial.loadTexture('images/default.png');
         this.quadMaterial.setTextureWrap('REPEAT', 'REPEAT');
 
-        //------ Textures
-        this.texture1 = new CGFtexture(this, 'images/board.jpg');
-        this.texture2 = new CGFtexture(this, 'images/floor.png');
-        this.texture3 = new CGFtexture(this, 'images/window.jpg');
-        //-------
+
 
         //-------Objects connected to MyInterface
         this.displayAxis = true;
         this.displayQuad = false;
-        this.displayTangram = true;
+        this.displayUnitQuad = true;
+        this.displayTangram = false;
         this.scaleFactor = 5;
-        this.selectedTexture = -1;        
+        this.selectedTexture = -1;  
+        this.nearestFilter=false;      
         this.wrapS = 0;
         this.wrapT = 0;
 
@@ -147,12 +154,16 @@ export class MyScene extends CGFscene {
         // Uncomment next line for NEAREST when magnifying, or 
         // add a checkbox in the GUI to alternate in real time
         
-        // this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
-        if (this.displayQuad)
+        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
+        
+         if (this.displayQuad)
             this.quad.display();
 
         if (this.displayTangram)
             this.tangram.display();
+
+        if (this.displayUnitQuad)
+            this.unitQuad.display();
         // ---- END Primitive drawing section
     }
 }
