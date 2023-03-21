@@ -4,4 +4,4 @@
 
 ## TP 4 Notes
 
-![Screenshot 1](screenshots/cg-t04g10-tp4-1.png)
+![Screenshot 1](screenshots/cg-t04-g10-tp4-1.png)
