@@ -22,13 +22,23 @@ export class MyInterface extends CGFinterface {
         //Checkbox element in GUI
         this.gui.add(this.scene, 'displayAxis').name('Display Axis');
 
+        //Checkbox to enable/disable the display of object myQuad (MyQuad)
+        this.gui.add(this.scene, 'displayQuad').name('Display Quad');
+
+        //Checkbox to enable/disable the display of object myDiamond (MyDiamond)
+        this.gui.add(this.scene, 'displayTangram').name('Display Tangram');
+
+        //Checkbox to enable/disable the display of object myUnitCubeQuad (MyUnitCubeQuad)
+        this.gui.add(this.scene, 'displayUnitQuad').name('Display UnitQuad');
+
+        //Checkbox to enable/disable nearest filter for textures
+        this.gui.add(this.scene,'nearestFilter').name('Nearest Filter');
+
         //Dropdown for textures
         this.gui.add(this.scene, 'selectedTexture', this.scene.textureIds).name('Selected Texture').onChange(this.scene.updateAppliedTexture.bind(this.scene));
         //Dropdown for wrapping (S)
         this.gui.add(this.scene, 'wrapS', this.scene.wrappingS).name('Wrap S').onChange(this.scene.updateTextureWrapping.bind(this.scene));
         this.gui.add(this.scene, 'wrapT', this.scene.wrappingT).name('Wrap T').onChange(this.scene.updateTextureWrapping.bind(this.scene));
-        this.gui.add(this.scene,'displayQuad').name('Display Quad');
-        this.gui.add(this.scene,'displayTangram').name('Display Tangram');
 
         //Groups for Texture coordinates per vertex (MyQuad)
         var f0 = this.gui.addFolder('Top Left Coords')
