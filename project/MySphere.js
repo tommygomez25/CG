@@ -7,10 +7,11 @@ export class MySphere extends CGFobject {
    * @param  {integer} slices - number of slices 
    * @param  {integer} stacks - number of stacks, from the center to the poles (half of sphere)
    */
-  constructor(scene, slices, stacks) {
+  constructor(scene, slices, stacks, inside = false) {
     super(scene);
     this.stacks = stacks * 2; 
     this.slices = slices; 
+    this.inside = inside;
 
     this.initBuffers();
   }
@@ -39,11 +40,22 @@ export class MySphere extends CGFobject {
             
           var curr = lat * (this.slices + 1) + long;
           var next = curr + (this.slices + 1);
-          this.indices.push(curr, next, curr + 1);
-          this.indices.push(next, next + 1, curr + 1,);
+          if(!this.inside){
+            this.indices.push(curr, next, curr + 1);
+            this.indices.push(next, next + 1, curr + 1);
+          }
+          else{
+            this.indices.push(curr + 1, next, curr);
+            this.indices.push(curr + 1, next + 1, next);
+          }
+          
         }
-
-        this.normals.push(x, y, z);
+        if(!this.inside){
+          this.normals.push(x, y, z);
+        }
+        else{
+          this.normals.push(-x, -y, -z);
+        }
         this.texCoords.push(long / this.slices, lat / this.stacks)
 
         theta += (2 * Math.PI) / this.slices;
