@@ -2,6 +2,7 @@ import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFshader, CGFtexture } fr
 import { MyPlane } from "./MyPlane.js";
 import { MySphere } from "./MySphere.js";
 import { MyPanorama } from "./MyPanorama.js";
+import { MyBird } from "./MyBird.js";
 
 /**
  * MyScene
@@ -37,6 +38,8 @@ export class MyScene extends CGFscene {
     this.plane = new MyPlane(this,30);
     this.sphere = new MySphere(this, 30, 15);
     this.panoramSphere = new MyPanorama(this, this.panoramaTexture);
+
+    this.bird = new MyBird(this);
 
     //Objects connected to MyInterface
     this.displayAxis = true;
@@ -102,6 +105,8 @@ export class MyScene extends CGFscene {
     // this.popMatrix();
 
     this.panoramSphere.display();
+
+    this.bird.display();
 
 
     // ---- END Primitive drawing section
