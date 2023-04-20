@@ -19,12 +19,12 @@ export class MyBirdEye extends CGFobject {
     this.scene.pushMatrix();
     if(this.side == 0){
         this.scene.translate(-0.25, 0.2,0.2);
-        this.scene.rotate(4*Math.PI/10, 0,1, 0);
+        this.scene.rotate(Math.PI/3, 0,1, 0);
         this.scene.scale(0.1,0.1,0.1)
     }
     else{
         this.scene.translate(-0.25, 0.2,-0.2);
-        this.scene.rotate(-4*Math.PI/10, 0,1, 0);
+        this.scene.rotate(-Math.PI/3, 0,1, 0);
         this.scene.scale(0.1,0.1,0.1)
     }
     this.appearance.apply();
