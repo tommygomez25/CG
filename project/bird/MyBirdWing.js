@@ -18,8 +18,17 @@ export class MyBirdWing extends CGFobject {
     this.side = side;
   }
 
-  display() {
+  display(offset = 0) {
     this.scene.pushMatrix();
+
+    if(offset != 0){ // wing movement
+      if(this.side == 0){
+        this.scene.rotate(0.3*Math.sin(offset), 1, 0, 0);
+      }
+      else{
+        this.scene.rotate(-0.3*Math.sin(offset), 1, 0, 0);
+      }
+    }
     
     if (this.side == 0) {
       this.scene.translate(1.5, 0.3, 0.95);
@@ -34,6 +43,15 @@ export class MyBirdWing extends CGFobject {
     this.scene.popMatrix();
 
     this.scene.pushMatrix();
+
+    if(offset != 0){ // wing movement
+      if(this.side == 0){
+        this.scene.rotate(0.3*Math.sin(offset), 1, 0, 0);
+      }
+      else{
+        this.scene.rotate(-0.3*Math.sin(offset), 1, 0, 0);
+      }
+    }
 
     if (this.side == 0) {
         this.scene.translate(2.0, -0.05, 2.29)

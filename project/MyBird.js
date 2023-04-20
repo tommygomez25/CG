@@ -21,7 +21,7 @@ export class MyBird extends CGFobject {
     this.setWings()
     this.setTail()
     this.offset = 0
-    this.velocity = 0.001;
+    this.velocity = 0.005;
 
   }
 
@@ -123,14 +123,9 @@ export class MyBird extends CGFobject {
       this.leftEye.display();
       this.rightEye.display();
       this.beak.display();
-      this.scene.pushMatrix();
-      this.scene.rotate(0.3*Math.sin(this.offset), 1, 0, 0);
-      this.leftWing.display();
-      this.scene.popMatrix();
-      this.scene.pushMatrix();
-      this.scene.rotate(-0.3*Math.sin(this.offset), 1, 0, 0);
-      this.rightWing.display();
-      this.scene.popMatrix();
+      
+      this.leftWing.display(this.offset);
+      this.rightWing.display(this.offset);
       this.tail.display();
       this.scene.popMatrix();
   }
