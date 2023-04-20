@@ -55,6 +55,7 @@ export class MyPlane extends CGFobject {
 				this.indices.push(ind);
 			}
 		}
+
 		this.primitiveType = this.scene.gl.TRIANGLE_STRIP;
 		this.initGLBuffers();
 	}

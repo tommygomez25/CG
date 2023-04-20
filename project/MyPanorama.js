@@ -8,6 +8,7 @@ export class MyPanorama extends CGFobject {
     
     this.texture = texture;
     this.panoramaAppearance = new CGFappearance(this.scene);
+    this.panoramaAppearance.setEmission(1,1,1,1)
     this.panoramaAppearance.setTexture(this.texture);
 
     this.initBuffers();
