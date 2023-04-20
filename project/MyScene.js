@@ -38,7 +38,7 @@ export class MyScene extends CGFscene {
     this.plane = new MyPlane(this,30);
     this.panoramSphere = new MyPanorama(this, this.panoramaTexture);
 
-    this.bird = new MyBird(this);
+    this.bird = new MyBird(this,0,0,[0,3,0]);
 
     //Objects connected to MyInterface
     this.displayAxis = true;
@@ -53,6 +53,8 @@ export class MyScene extends CGFscene {
 
     this.setUpdatePeriod(1000/60.0);
     this.previousTime = 0;
+    this.speedFactor = 0.5;
+    this.scaleFactor = 0.5;
 
   }
   initLights() {
@@ -88,6 +90,34 @@ export class MyScene extends CGFscene {
     }
     this.previousTime = t;
   }
+
+  checkKeys() {
+    var text = "Keys pressed: ";
+    var keysPressed = false;
+    // Check for key codes e.g. in https://keycode.info/
+    if (this.gui.isKeyPressed("KeyW")) {
+      keysPressed = true;
+      this.bird.accelerate(1)
+    }
+    if (this.gui.isKeyPressed("KeyS")) {
+      keysPressed = true;
+      this.bird.accelerate(-1)
+    }
+    if (this.gui.isKeyPressed("KeyA")) {
+      keysPressed = true;
+      this.bird.turn(1)
+    }
+    if (this.gui.isKeyPressed("KeyD")) {
+      keysPressed = true;
+      this.bird.turn(-1)
+    }
+    if (this.gui.isKeyPressed("KeyR")) {
+      keysPressed = true;
+      this.bird.reset();
+    }
+    
+  }
+
   display() {
     // ---- BEGIN Background, camera and axis setup
     // Clear image and depth buffer everytime we update the scene
@@ -122,7 +152,7 @@ export class MyScene extends CGFscene {
 
     this.bird.display();
 
-
+    this.checkKeys();
     // ---- END Primitive drawing section
   }
 }
