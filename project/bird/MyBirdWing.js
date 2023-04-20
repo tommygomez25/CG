@@ -1,6 +1,6 @@
 import { CGFobject } from '../../lib/CGF.js';
 import { MyTriangle } from '../primitives/MyTriangle.js';
-import { MyPlane } from '../MyPlane.js';
+import  { MyQuad } from '../primitives/MyQuad.js';
 
 
 export class MyBirdWing extends CGFobject {
@@ -12,7 +12,7 @@ export class MyBirdWing extends CGFobject {
    */
   constructor(scene, appearance,side) {
     super(scene);
-    this.wingPlane = new MyPlane(scene,30)
+    this.wingPlane = new MyQuad(scene)
     this.wingTriangle = new MyTriangle(scene);
     this.appearance = appearance;
     this.side = side;
