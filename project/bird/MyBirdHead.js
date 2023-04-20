@@ -18,7 +18,7 @@ export class MyBirdHead extends CGFobject {
   display() {
     this.scene.pushMatrix();
     this.appearance.apply();
-    this.scene.scale(0.5, 0.5, 0.5)
+    this.scene.scale(0.5, 0.5, 0.35)
     this.head.display();
     this.scene.popMatrix();
   }

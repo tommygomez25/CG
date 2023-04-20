@@ -28,6 +28,7 @@ export class MyBird extends CGFobject {
     this.headAppearance = new CGFappearance(this.scene);
     this.headAppearance.setAmbient(0,0,0,1)
     this.headAppearance.setSpecular(0,0,0,0)
+    
     this.headAppearance.setShininess(10)
 
     this.headTexture = new CGFtexture(this.scene,"./images/birdTexture.jpg")
