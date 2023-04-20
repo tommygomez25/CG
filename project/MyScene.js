@@ -51,6 +51,9 @@ export class MyScene extends CGFscene {
     this.appearance.setTexture(this.texture);
     this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
+    this.setUpdatePeriod(1000/60.0);
+    this.previousTime = 0;
+
   }
   initLights() {
     this.lights[0].setPosition(5, 0, 5, 1);
@@ -77,6 +80,13 @@ export class MyScene extends CGFscene {
     this.setDiffuse(0.2, 0.4, 0.8, 1.0);
     this.setSpecular(0.2, 0.4, 0.8, 1.0);
     this.setShininess(10.0);
+  }
+  update(t){
+    if(this.previousTime != 0){
+      var deltaTime = t - this.previousTime;
+      this.bird.update(deltaTime);
+    }
+    this.previousTime = t;
   }
   display() {
     // ---- BEGIN Background, camera and axis setup

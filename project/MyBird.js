@@ -20,7 +20,13 @@ export class MyBird extends CGFobject {
     this.setBeak()
     this.setWings()
     this.setTail()
+    this.offset = 0
+    this.velocity = 0.001;
 
+  }
+
+  update(t){
+    this.offset += this.velocity * t;
   }
 
   setHead(){
@@ -112,19 +118,24 @@ export class MyBird extends CGFobject {
     this.tail = new MyBirdTail(this.scene, this.tailAppearance);
   }
 
-
-
-
-    display() {
-        this.scene.pushMatrix();
-        this.head.display();
-        this.body.display();
-        this.leftEye.display();
-        this.rightEye.display();
-        this.beak.display();
-        this.leftWing.display();
-        this.rightWing.display();
-        this.tail.display();
-        this.scene.popMatrix();
-    }
+  display() {
+      this.scene.pushMatrix();
+      //console.log(this.t)
+      this.scene.translate(0, Math.sin(this.offset) ,0)
+      this.head.display();
+      this.body.display();
+      this.leftEye.display();
+      this.rightEye.display();
+      this.beak.display();
+      this.scene.pushMatrix();
+      this.scene.rotate(0.3*Math.sin(this.offset), 1, 0, 0);
+      this.leftWing.display();
+      this.scene.popMatrix();
+      this.scene.pushMatrix();
+      this.scene.rotate(-0.3*Math.sin(this.offset), 1, 0, 0);
+      this.rightWing.display();
+      this.scene.popMatrix();
+      this.tail.display();
+      this.scene.popMatrix();
+  }
 }
