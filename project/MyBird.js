@@ -82,10 +82,6 @@ export class MyBird extends CGFobject {
     this.beakAppearance.setSpecular(0,0,0,0)
     this.beakAppearance.setShininess(10)
 
-    this.beakTexture = new CGFtexture(this.scene,"./images/birdTexture.jpg")
-    this.beakAppearance.setTexture(this.beakTexture)
-    this.beakAppearance.setTextureWrap('MIRRORED_REPEAT','MIRRORED_REPEAT')
-
     this.beak = new MyBirdBeak(this.scene, this.beakAppearance);
   }
     
