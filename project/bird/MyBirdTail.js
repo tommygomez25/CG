@@ -17,7 +17,7 @@ export class MyBirdTail extends CGFobject {
 
   display() {
     this.scene.pushMatrix();
-    this.scene.translate(2.4,0.0, 0.0);
+    this.scene.translate(2.2,0.0, 0.0);
     this.scene.scale(0.5,0.3,0.3)
     this.scene.rotate(-Math.PI/2, 0,0,1)
     this.appearance.apply();

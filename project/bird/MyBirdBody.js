@@ -18,7 +18,7 @@ export class MyBirdBody extends CGFobject {
   display() {
     this.scene.pushMatrix();
     this.appearance.apply();
-    this.scene.scale(1.3, 0.6, 0.6)
+    this.scene.scale(1.2, 0.6, 0.6)
     this.scene.translate(1.0, 0.0, 0.0);
     this.body.display();
     this.scene.popMatrix();

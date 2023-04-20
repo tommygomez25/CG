@@ -26,7 +26,7 @@ export class MyBird extends CGFobject {
   setHead(){
     // Head - round sphere
     this.headAppearance = new CGFappearance(this.scene);
-    this.headAppearance.setAmbient(0,0,0,1)
+    this.headAppearance.setAmbient(1,1,1,1)
     this.headAppearance.setSpecular(0,0,0,0)
     
     this.headAppearance.setShininess(10)
@@ -42,7 +42,7 @@ export class MyBird extends CGFobject {
   setBody(){
     // Body - egg shaped sphere
     this.bodyAppearance = new CGFappearance(this.scene);
-    this.bodyAppearance.setAmbient(0,0,0,1)
+    this.bodyAppearance.setAmbient(1,1,1,1)
     this.bodyAppearance.setSpecular(0,0,0,0)
     this.bodyAppearance.setShininess(10)
 
@@ -56,7 +56,7 @@ export class MyBird extends CGFobject {
   setEyes(){
     // Eye - round sphere
     this.eyeAppearance = new CGFappearance(this.scene);
-    this.eyeAppearance.setAmbient(0,0,0,1)
+    this.eyeAppearance.setAmbient(1,1,1,1)
     this.eyeAppearance.setSpecular(0,0,0,0)
     this.eyeAppearance.setShininess(10)
 
@@ -72,7 +72,7 @@ export class MyBird extends CGFobject {
 
     // Beak - squared pyramid
     this.beakAppearance = new CGFappearance(this.scene);
-    this.beakAppearance.setAmbient(0,0,0,1)
+    this.beakAppearance.setAmbient(1,1,1,1)
     this.beakAppearance.setSpecular(0,0,0,0)
     this.beakAppearance.setShininess(10)
 
@@ -86,7 +86,7 @@ export class MyBird extends CGFobject {
   setWings() {
     // Wing - plane and triangle
     this.wingAppearance = new CGFappearance(this.scene);
-    this.wingAppearance.setAmbient(0,0,0,1)
+    this.wingAppearance.setAmbient(1,1,1,1)
     this.wingAppearance.setSpecular(0,0,0,0)
     this.wingAppearance.setShininess(10)
 
@@ -101,7 +101,7 @@ export class MyBird extends CGFobject {
   setTail() {
     // Tail - pyramid
     this.tailAppearance = new CGFappearance(this.scene);
-    this.tailAppearance.setAmbient(0,0,0,1)
+    this.tailAppearance.setAmbient(1,1,1,1)
     this.tailAppearance.setSpecular(0,0,0,0)
     this.tailAppearance.setShininess(10)
 
