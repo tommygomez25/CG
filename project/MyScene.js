@@ -42,7 +42,8 @@ export class MyScene extends CGFscene {
 
     //Objects connected to MyInterface
     this.displayAxis = true;
-    this.scaleFactor = 1;
+    this.speedFactor = 0.3;
+    this.scaleFactor = 0.3;
 
     this.enableTextures(true);
 
@@ -53,8 +54,6 @@ export class MyScene extends CGFscene {
 
     this.setUpdatePeriod(1000/60.0);
     this.previousTime = 0;
-    this.speedFactor = 0.5;
-    this.scaleFactor = 0.5;
 
   }
   initLights() {

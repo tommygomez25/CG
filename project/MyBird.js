@@ -33,7 +33,6 @@ export class MyBird extends CGFobject {
     this.z = position[2]
     this.rotationLeft = false
     this.rotationRight = false
-    this.rotationOffset = 0.05
     this.maxVelocity = 1
     this.maxHeight = 5
     this.minHeight = 0
@@ -44,9 +43,12 @@ export class MyBird extends CGFobject {
 
   update(t){
     this.offset += this.velocity * t;
-    this.x += this.offset * Math.cos(this.orientation) * (-1)
-    // ver o this.y 
-    this.z += this.offset * Math.sin(this.orientation) * (-1)
+    //this.x += this.offset * Math.cos(this.orientation) * (-1)
+    // ver o this.y para fazer o bird subir e descer
+    console.log('offset: ' + this.offset)
+    console.log('sin: ' + Math.sin(this.offset))
+    this.y += Math.sin(this.offset)
+    //this.z += this.offset * Math.sin(this.orientation) * (-1)
 
     if (this.previousOrientation = this.orientation) {
       this.rotationLeft = false
@@ -84,13 +86,14 @@ export class MyBird extends CGFobject {
   // val will be called with a value between -1 and 1
   turn(val) {
     val < 0 ? this.rotationRight = true : this.rotationLeft = true // if val is negative, rotation is to the right
-    val *= this.rotationOffset 
+    val *= this.scene.speedFactor / 50
     this.orientation += val
   }
 
   // val will be called with a value between -1 and 1
   accelerate(val) {
-    val *= (this.scene.speedFactor/1000000)
+
+    val *= this.scene.speedFactor / 100
     let newVelocity = this.velocity + val
 
     if (newVelocity < this.maxVelocity) {
@@ -99,6 +102,7 @@ export class MyBird extends CGFobject {
     else {
       this.velocity = this.maxVelocity
     }
+
   }
 
   reset() { // reset bird to initial position
@@ -209,8 +213,8 @@ export class MyBird extends CGFobject {
       this.leftEye.display();
       this.rightEye.display();
       this.beak.display();
-      this.leftWing.display(this.offset);
-      this.rightWing.display(this.offset);
+      this.leftWing.display();
+      this.rightWing.display();
       this.tail.display();
 
       this.scene.popMatrix();
