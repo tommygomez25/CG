@@ -43,8 +43,8 @@ export class MyBird extends CGFobject {
 
   update(t){
     this.offset += this.velocity * t;
-    this.x += this.offset * Math.cos(this.orientation) * (-1)
-    this.z += this.offset * Math.sin(this.orientation) * (-1)
+    //this.x += this.offset * Math.cos(this.orientation) * (-1) / 100
+    //this.z += this.offset * Math.sin(this.orientation) * (-1) / 100
 
     if (this.previousOrientation = this.orientation) {
       this.rotationLeft = false
@@ -56,17 +56,34 @@ export class MyBird extends CGFobject {
   }
 
   updateHeight(t) {
-    let amplitude = 2
+    let amplitude = 1
     let period = 1
     let b = 2 * Math.PI / period
     this.y = amplitude * Math.sin(b * (t/1000)) + this.initialPosition[1] // t divides by 1000 to convert from milliseconds to seconds
   }
 
   updateWingsAngle(t) {
-    let amplitude = 2
+    let amplitude = Math.PI / 4
+    let period = 1
 
-    this.leftWing.angle = amplitude * Math.PI * Math.sin(this.offset * (t+ this.previousLeftWingAngle)) / 180
-    this.rightWing.angle = - amplitude * Math.PI * Math.sin(this.offset * (t + this.previousRightWingAngle)) / 180 
+    t = t / 1000 // convert from milliseconds to seconds
+    //let newVelocity = Math.min(this.velocity * 100,1.7)
+    //console.log('newVelocity: ' + newVelocity)
+    //let phase = totalTime * Math.max(newVelocity,0.5) / period
+    let phase = (this.offset + this.velocity * t) / period
+  
+
+    /*
+    if (this.velocity > 0) {
+
+      this.leftWing.angle = 0.7*Math.sin(this.offset)
+      console.log(this.leftWing.angle)
+      this.rightWing.angle = - 0.7*Math.sin(this.offset)
+    }
+    else {
+      */
+      this.leftWing.angle = amplitude * Math.sin(2 * Math.PI * phase);
+      this.rightWing.angle = - amplitude * Math.sin(2 * Math.PI * phase);
 
     this.previousLeftWingAngle = this.leftWing.angle
     this.previousRightWingAngle = this.rightWing.angle
@@ -82,7 +99,7 @@ export class MyBird extends CGFobject {
   // val will be called with a value between -1 and 1
   accelerate(val) {
 
-    val *= this.scene.speedFactor / 100000
+    val *= this.scene.speedFactor / 1000
     let newVelocity = this.velocity + val
 
     if (newVelocity < this.maxVelocity) {

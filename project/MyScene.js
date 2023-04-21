@@ -82,6 +82,7 @@ export class MyScene extends CGFscene {
     this.setSpecular(0.2, 0.4, 0.8, 1.0);
     this.setShininess(10.0);
   }
+
   update(t){
     
     if(this.previousTime != 0){
@@ -95,6 +96,7 @@ export class MyScene extends CGFscene {
    }
    var elapsedTime = t - this.startTime;
     this.bird.updateHeight(elapsedTime)
+    this.bird.updateWingsAngle(deltaTime)
   }
 
   checkKeys() {
