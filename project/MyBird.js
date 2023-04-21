@@ -43,12 +43,8 @@ export class MyBird extends CGFobject {
 
   update(t){
     this.offset += this.velocity * t;
-    //this.x += this.offset * Math.cos(this.orientation) * (-1)
-    // ver o this.y para fazer o bird subir e descer
-    console.log('offset: ' + this.offset)
-    console.log('sin: ' + Math.sin(this.offset))
-    this.y += Math.sin(this.offset)
-    //this.z += this.offset * Math.sin(this.orientation) * (-1)
+    this.x += this.offset * Math.cos(this.orientation) * (-1)
+    this.z += this.offset * Math.sin(this.orientation) * (-1)
 
     if (this.previousOrientation = this.orientation) {
       this.rotationLeft = false
@@ -59,25 +55,18 @@ export class MyBird extends CGFobject {
     this.updateWingsAngle(t)
   }
 
+  updateHeight(t) {
+    let amplitude = 2
+    let period = 1
+    let b = 2 * Math.PI / period
+    this.y = amplitude * Math.sin(b * (t/1000)) + this.initialPosition[1] // t divides by 1000 to convert from milliseconds to seconds
+  }
+
   updateWingsAngle(t) {
-    // if angle reaches 25 degrees, wing is going down
-    if (this.leftWing.angle > Math.PI/6 && this.leftWing.wingGoingDown) {
-      this.leftWing.wingGoingDown = false
-    }
-    else {
-      this.leftWing.wingGoingDown = true
-    }
+    let amplitude = 2
 
-    if (this.rightWing.angle < -Math.PI/6 && this.rightWing.wingGoingDown) {
-      this.rightWing.wingGoingDown = false
-    }
-    else {
-      this.rightWing.wingGoingDown = true
-    }
-
-    
-    this.leftWing.angle = 20 * Math.PI * Math.sin(this.offset * (t+ this.previousLeftWingAngle)) / 180
-    this.rightWing.angle = - 20 * Math.PI * Math.sin(this.offset * (t + this.previousRightWingAngle)) / 180 
+    this.leftWing.angle = amplitude * Math.PI * Math.sin(this.offset * (t+ this.previousLeftWingAngle)) / 180
+    this.rightWing.angle = - amplitude * Math.PI * Math.sin(this.offset * (t + this.previousRightWingAngle)) / 180 
 
     this.previousLeftWingAngle = this.leftWing.angle
     this.previousRightWingAngle = this.rightWing.angle
@@ -93,7 +82,7 @@ export class MyBird extends CGFobject {
   // val will be called with a value between -1 and 1
   accelerate(val) {
 
-    val *= this.scene.speedFactor / 100
+    val *= this.scene.speedFactor / 100000
     let newVelocity = this.velocity + val
 
     if (newVelocity < this.maxVelocity) {

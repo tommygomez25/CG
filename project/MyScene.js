@@ -52,7 +52,7 @@ export class MyScene extends CGFscene {
     this.appearance.setTexture(this.texture);
     this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
-    this.setUpdatePeriod(1000/60.0);
+    this.setUpdatePeriod(60/1000);
     this.previousTime = 0;
 
   }
@@ -83,11 +83,18 @@ export class MyScene extends CGFscene {
     this.setShininess(10.0);
   }
   update(t){
+    
     if(this.previousTime != 0){
       var deltaTime = t - this.previousTime;
       this.bird.update(deltaTime);
     }
     this.previousTime = t;
+    
+   if (this.startTime === undefined) {
+    this.startTime = t;
+   }
+   var elapsedTime = t - this.startTime;
+    this.bird.updateHeight(elapsedTime)
   }
 
   checkKeys() {
