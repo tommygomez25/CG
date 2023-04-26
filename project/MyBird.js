@@ -116,7 +116,6 @@ export class MyBird extends CGFobject {
 
   display() {
       this.scene.pushMatrix();
-      //console.log(this.t)
       this.scene.translate(0, Math.sin(this.offset) ,0)
       this.head.display();
       this.body.display();
