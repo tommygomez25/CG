@@ -38,11 +38,12 @@ export class MyScene extends CGFscene {
     this.plane = new MyPlane(this,30);
     this.panoramSphere = new MyPanorama(this, this.panoramaTexture);
 
-    this.bird = new MyBird(this);
+    this.bird = new MyBird(this,0,0,[0,3,0]);
 
     //Objects connected to MyInterface
     this.displayAxis = true;
-    this.scaleFactor = 1;
+    this.speedFactor = 0.3;
+    this.scaleFactor = 0.3;
 
     this.enableTextures(true);
 
@@ -51,7 +52,7 @@ export class MyScene extends CGFscene {
     this.appearance.setTexture(this.texture);
     this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
-    this.setUpdatePeriod(1000/60.0);
+    this.setUpdatePeriod(60/1000);
     this.previousTime = 0;
 
   }
@@ -81,13 +82,50 @@ export class MyScene extends CGFscene {
     this.setSpecular(0.2, 0.4, 0.8, 1.0);
     this.setShininess(10.0);
   }
+
   update(t){
+    
     if(this.previousTime != 0){
       var deltaTime = t - this.previousTime;
       this.bird.update(deltaTime);
     }
     this.previousTime = t;
+    
+   if (this.startTime === undefined) {
+    this.startTime = t;
+   }
+   var elapsedTime = t - this.startTime;
+    this.bird.updateHeight(elapsedTime)
+    this.bird.updateWingsAngle(deltaTime)
   }
+
+  checkKeys() {
+    var text = "Keys pressed: ";
+    var keysPressed = false;
+    // Check for key codes e.g. in https://keycode.info/
+    if (this.gui.isKeyPressed("KeyW")) {
+      keysPressed = true;
+      this.bird.accelerate(1)
+    }
+    if (this.gui.isKeyPressed("KeyS")) {
+      keysPressed = true;
+      this.bird.accelerate(-1)
+    }
+    if (this.gui.isKeyPressed("KeyA")) {
+      keysPressed = true;
+      this.bird.turn(1)
+    }
+    if (this.gui.isKeyPressed("KeyD")) {
+      keysPressed = true;
+      this.bird.turn(-1)
+    }
+    if (this.gui.isKeyPressed("KeyR")) {
+      keysPressed = true;
+      this.bird.reset();
+    }
+    
+  }
+
   display() {
     // ---- BEGIN Background, camera and axis setup
     // Clear image and depth buffer everytime we update the scene
@@ -122,7 +160,7 @@ export class MyScene extends CGFscene {
 
     this.bird.display();
 
-
+    this.checkKeys();
     // ---- END Primitive drawing section
   }
 }

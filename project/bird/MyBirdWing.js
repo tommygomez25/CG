@@ -16,59 +16,47 @@ export class MyBirdWing extends CGFobject {
     this.wingTriangle = new MyTriangle(scene);
     this.appearance = appearance;
     this.side = side;
+    this.angle = 0;
   }
 
-  display(offset = 0) {
+  display() {
     this.scene.pushMatrix();
+    console.log('angle: ' + this.angle)
 
-    if(offset != 0){ // wing movement
-      if(this.side == 0){
-        this.scene.rotate(0.3*Math.sin(offset), 1, 0, 0);
-      }
-      else{
-        this.scene.rotate(-0.3*Math.sin(offset), 1, 0, 0);
-      }
-    }
-    
     if (this.side == 0) {
-      this.scene.translate(1.5, 0.3, 0.95);
-      this.scene.rotate(-Math.PI/2 - Math.PI/10, 1, 0,0)
+        this.scene.rotate(this.angle,1,0,0)
+        this.scene.translate(1.5, 0.3, 0.95);
+        this.scene.rotate(-Math.PI/2 - Math.PI/10, 1, 0,0)
     }
     else {
-      this.scene.translate(1.5,0.3, -0.95);
-      this.scene.rotate(-Math.PI/2 + Math.PI/10, 1, 0,0)
+        this.scene.rotate(this.angle,1,0,0)
+        this.scene.translate(1.5,0.3, -0.95);
+        this.scene.rotate(-Math.PI/2 + Math.PI/10, 1, 0,0)
     }    
+
     this.appearance.apply();
     this.wingPlane.display();
     this.scene.popMatrix();
 
     this.scene.pushMatrix();
 
-    if(offset != 0){ // wing movement
-      if(this.side == 0){
-        this.scene.rotate(0.3*Math.sin(offset), 1, 0, 0);
-      }
-      else{
-        this.scene.rotate(-0.3*Math.sin(offset), 1, 0, 0);
-      }
-    }
-
     if (this.side == 0) {
+        this.scene.rotate(this.angle,1,0,0)
         this.scene.translate(2.0, -0.05, 2.29)
         this.scene.rotate(Math.PI/6, 1, 0,0)
         this.scene.rotate(Math.PI, 0, 1,0)
     }
     else {
+        this.scene.rotate(this.angle,1,0,0)
         this.scene.translate(1.0, 0.45, -1.42)
         this.scene.rotate(-Math.PI/6, 1, 0,0)
         this.scene.rotate(Math.PI/2, 0, 1,0)
     }
+
     this.appearance.apply();
     this.wingTriangle.display();
     this.scene.popMatrix();
 
   }
-
-
 
 }

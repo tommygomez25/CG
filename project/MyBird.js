@@ -11,7 +11,7 @@ export class MyBird extends CGFobject {
    * @method constructor
    * @param  {CGFscene} scene - MyScene object
    */
-  constructor(scene) {
+  constructor(scene,orientation,velocity,position) {
     super(scene);
 
     this.setHead()
@@ -20,14 +20,106 @@ export class MyBird extends CGFobject {
     this.setBeak()
     this.setWings()
     this.setTail()
-    this.offset = 0
-    this.velocity = 0.005;
 
+    this.velocity = velocity
+    this.orientation = orientation
+    this.position = position
+    
+    this.offset = 0
+    this.previousOrientation = 0
+    this.initialPosition = position
+    this.x = position[0]
+    this.y = position[1]
+    this.z = position[2]
+    this.rotationLeft = false
+    this.rotationRight = false
+    this.maxVelocity = 1
+    this.maxHeight = 5
+    this.minHeight = 0
+
+    this.previousLeftWingAngle = 0
+    this.previousRightWingAngle = 0
   }
 
   update(t){
     this.offset += this.velocity * t;
+    //this.x += this.offset * Math.cos(this.orientation) * (-1) / 100
+    //this.z += this.offset * Math.sin(this.orientation) * (-1) / 100
+
+    if (this.previousOrientation = this.orientation) {
+      this.rotationLeft = false
+      this.rotationRight = false
+    }
+    this.previousOrientation = this.orientation
+
+    this.updateWingsAngle(t)
   }
+
+  updateHeight(t) {
+    let amplitude = 1
+    let period = 1
+    let b = 2 * Math.PI / period
+    this.y = amplitude * Math.sin(b * (t/1000)) + this.initialPosition[1] // t divides by 1000 to convert from milliseconds to seconds
+  }
+
+  updateWingsAngle(t) {
+    let amplitude = Math.PI / 4
+    let period = 1
+
+    t = t / 1000 // convert from milliseconds to seconds
+    //let newVelocity = Math.min(this.velocity * 100,1.7)
+    //console.log('newVelocity: ' + newVelocity)
+    //let phase = totalTime * Math.max(newVelocity,0.5) / period
+    let phase = (this.offset + this.velocity * t) / period
+  
+
+    /*
+    if (this.velocity > 0) {
+
+      this.leftWing.angle = 0.7*Math.sin(this.offset)
+      console.log(this.leftWing.angle)
+      this.rightWing.angle = - 0.7*Math.sin(this.offset)
+    }
+    else {
+      */
+      this.leftWing.angle = amplitude * Math.sin(2 * Math.PI * phase);
+      this.rightWing.angle = - amplitude * Math.sin(2 * Math.PI * phase);
+
+    this.previousLeftWingAngle = this.leftWing.angle
+    this.previousRightWingAngle = this.rightWing.angle
+  }
+
+  // val will be called with a value between -1 and 1
+  turn(val) {
+    val < 0 ? this.rotationRight = true : this.rotationLeft = true // if val is negative, rotation is to the right
+    val *= this.scene.speedFactor / 50
+    this.orientation += val
+  }
+
+  // val will be called with a value between -1 and 1
+  accelerate(val) {
+
+    val *= this.scene.speedFactor / 1000
+    let newVelocity = this.velocity + val
+
+    if (newVelocity < this.maxVelocity) {
+      this.velocity = newVelocity
+    }
+    else {
+      this.velocity = this.maxVelocity
+    }
+
+  }
+
+  reset() { // reset bird to initial position
+    this.x = this.initialPosition[0]
+    this.y = this.initialPosition[1]
+    this.z = this.initialPosition[2]
+    this.orientation = 0
+    this.velocity = 0
+    this.offset = 0
+  }
+
 
   setHead(){
     // Head - round sphere
@@ -116,16 +208,21 @@ export class MyBird extends CGFobject {
 
   display() {
       this.scene.pushMatrix();
-      this.scene.translate(0, Math.sin(this.offset) ,0)
+      //console.log(this.t)
+
+      //this.scene.translate(0, Math.sin(this.offset) ,0)
+      this.scene.translate(this.x, this.y, this.z)
+      this.scene.rotate(this.orientation, 0, 1, 0);
+
       this.head.display();
       this.body.display();
       this.leftEye.display();
       this.rightEye.display();
       this.beak.display();
-      
-      this.leftWing.display(this.offset);
-      this.rightWing.display(this.offset);
+      this.leftWing.display();
+      this.rightWing.display();
       this.tail.display();
+
       this.scene.popMatrix();
   }
 }
