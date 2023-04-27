@@ -6,6 +6,7 @@ import { MyBird } from "./MyBird.js";
 import { MyTerrain } from "./MyTerrain.js";
 import { MyBirdEgg } from "./MyBirdEgg.js";
 import { MyNest } from "./MyNest.js";
+import { MyBirdTail } from "./bird/MyBirdTail.js";
 
 /**
  * MyScene
@@ -129,6 +130,13 @@ export class MyScene extends CGFscene {
     if (this.gui.isKeyPressed("KeyR")) {
       keysPressed = true;
       this.bird.reset();
+    }
+    if (this.gui.isKeyPressed("KeyP")) {
+      keysPressed = true;
+      if(this.bird.y > -5){
+        this.bird.goDown(20,2);
+      }
+      
     }
     
   }

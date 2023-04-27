@@ -22,9 +22,12 @@ export class MyBird extends CGFobject {
     this.setTail()
 
     this.velocity = velocity
+    this.yAmplitude = 1
+    this.yPeriod = 1
     this.wingVelocity = 0.001
     this.orientation = orientation
     this.position = position
+    this.counter = 0
     
     this.offset = 0
     this.wingOffset = 0.0005
@@ -60,10 +63,27 @@ export class MyBird extends CGFobject {
   }
 
   updateHeight(t) {
-    let amplitude = 1
-    let period = 1
-    let b = 2 * Math.PI / period
-    this.y = amplitude * Math.sin(b * (t/1000)) + this.initialPosition[1] // t divides by 1000 to convert from milliseconds to seconds
+    let b = 2 * Math.PI / this.yPeriod
+    this.yAmplitude !== 1 ? this.counter += 1 : this.counter = 0
+    let offset = this.yAmplitude === 1 ? this.initialPosition[1] : -80
+    const targetY = this.yAmplitude * Math.sin(b * (t/1000)) + offset; // t divides by 1000 to convert from milliseconds to seconds
+
+    const delta = targetY - this.y;
+    const maxDelta = 0.51; // Adjust this value to control the speed of the interpolation
+    const newY = this.y + Math.sign(delta) * Math.min(maxDelta, Math.abs(delta));
+
+    // Update the object's position
+    this.y = newY;
+    if(this.counter >= 120){
+      this.yAmplitude = 1
+      this.yPeriod = 1
+      this.counter = 0
+    }
+  }
+
+  goDown(amplitude, period){
+    this.yAmplitude = amplitude
+    this.yPeriod = period    
   }
 
   updateWingsAngle(t) {
