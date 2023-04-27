@@ -3,6 +3,7 @@ import { MyPlane } from "./MyPlane.js";
 import { MySphere } from "./primitives/MySphere.js";
 import { MyPanorama } from "./MyPanorama.js";
 import { MyBird } from "./MyBird.js";
+import { MyTerrain } from "./MyTerrain.js";
 
 /**
  * MyScene
@@ -35,10 +36,11 @@ export class MyScene extends CGFscene {
 
     //Initialize scene objects
     this.axis = new CGFaxis(this);
-    this.plane = new MyPlane(this,30);
     this.panoramSphere = new MyPanorama(this, this.panoramaTexture);
 
     this.bird = new MyBird(this,0,0,[0,3,0]);
+
+    this.terrain = new MyTerrain(this);
 
     //Objects connected to MyInterface
     this.displayAxis = true;
@@ -46,11 +48,6 @@ export class MyScene extends CGFscene {
     this.scaleFactor = 0.3;
 
     this.enableTextures(true);
-
-    this.texture = new CGFtexture(this, "images/terrain.jpg");
-    this.appearance = new CGFappearance(this);
-    this.appearance.setTexture(this.texture);
-    this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
     this.setUpdatePeriod(60/1000);
     this.previousTime = 0;
@@ -142,13 +139,7 @@ export class MyScene extends CGFscene {
 
     // ---- BEGIN Primitive drawing section
 
-    this.pushMatrix();
-    this.appearance.apply();
-    this.translate(0,-100,0);
-    this.scale(400,400,400);
-    this.rotate(-Math.PI/2.0,1,0,0);
-    this.plane.display();
-    this.popMatrix();
+    this.terrain.display();
 
     // this.pushMatrix();
     // this.earthAppearance.apply();
