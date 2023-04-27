@@ -197,7 +197,7 @@ export class MyBird extends CGFobject {
 
       //this.scene.translate(0, Math.sin(this.offset) ,0)
       this.scene.translate(this.x, this.y, this.z)
-      this.scene.rotate(this.orientation, 0, 1, 0);
+      this.scene.rotate(this.orientation, 0, 1, 0)
 
       this.head.display();
       this.body.display();

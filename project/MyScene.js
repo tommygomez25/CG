@@ -149,7 +149,11 @@ export class MyScene extends CGFscene {
 
     this.panoramSphere.display();
 
+    this.pushMatrix();
+    this.translate(-0.4,0,0);
+    this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor)
     this.bird.display();
+    this.popMatrix();
 
     this.checkKeys();
     // ---- END Primitive drawing section
