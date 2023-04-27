@@ -43,9 +43,6 @@ export class MyBillboard extends CGFobject {
     let rotationAxis = vec3.create()
     vec3.cross(rotationAxis,billboardNormal, camToQuad);
 
-
-    console.log(rotationAxis)
-
     let cosAngle = vec3.dot(billboardNormal, camToQuad);
     let angle = Math.acos(cosAngle);
 

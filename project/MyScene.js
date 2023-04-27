@@ -4,6 +4,9 @@ import { MySphere } from "./primitives/MySphere.js";
 import { MyPanorama } from "./MyPanorama.js";
 import { MyBird } from "./MyBird.js";
 import { MyTerrain } from "./MyTerrain.js";
+import { MyBirdEgg } from "./MyBirdEgg.js";
+import { MyNest } from "./MyNest.js";
+import { MyBirdTail } from "./bird/MyBirdTail.js";
 import { MyBillboard } from "./MyBillboard.js";
 import { MyTreeGroupPatch } from "./MyTreeGroupPatch.js";
 import { MyTreeRowPatch } from "./MyTreeRowPatch.js";
@@ -49,6 +52,14 @@ export class MyScene extends CGFscene {
 
     this.rowTree = new MyTreeRowPatch(this);
 
+    this.birdEggs = [];
+    
+    for(let i = 0; i < 5; i++){
+      this.birdEggs.push(new MyBirdEgg(this));
+    }
+
+    this.nest = new MyNest(this);
+
     //Objects connected to MyInterface
     this.displayAxis = true;
     this.displayNormals = true
@@ -59,6 +70,9 @@ export class MyScene extends CGFscene {
 
     this.setUpdatePeriod(60/1000);
     this.previousTime = 0;
+
+    this.clickedP = false;
+    this.pTime = 0;
 
   }
   initLights() {
@@ -77,8 +91,8 @@ export class MyScene extends CGFscene {
       1.5,
       0.1,
       1000,
-      vec3.fromValues(-5, 10, 15),
-      vec3.fromValues(0, 0, 0)
+      vec3.fromValues(20, -15, 30),
+      vec3.fromValues(-0.4,-15,20)
     );
   }
   setDefaultAppearance() {
@@ -101,7 +115,25 @@ export class MyScene extends CGFscene {
     this.startTime = t;
    }
    var elapsedTime = t - this.startTime;
-    this.bird.updateHeight(elapsedTime)
+   
+   if (this.gui.isKeyPressed("KeyP")) {
+    //keysPressed = true;
+    if (!this.clickedP) {
+      this.clickedP = true;
+      this.pTime = elapsedTime;
+    }
+   }
+   this.bird.updateHeight(elapsedTime);
+
+   /*
+   if (this.gui.isKeyPressed("KeyP")) {
+    //keysPressed = true;
+    if(this.bird.y > -5){
+      this.bird.goDown(5,2);
+      this.pTime = elapsedTime;
+    }*/
+  
+
   }
 
   checkKeys() {
@@ -128,6 +160,14 @@ export class MyScene extends CGFscene {
       keysPressed = true;
       this.bird.reset();
     }
+    /*
+    if (this.gui.isKeyPressed("KeyP")) {
+      keysPressed = true;
+      if(this.bird.y > -5){
+        this.bird.goDown(5,2);
+      }
+    }*/
+    
     
   }
 
@@ -156,11 +196,17 @@ export class MyScene extends CGFscene {
     this.rowTree.display();
 
     this.pushMatrix();
-    this.translate(-0.4,0,0);
+    this.translate(-0.4,-15,20);
     this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor)
-    //this.bird.display();
+    this.bird.display();
     this.popMatrix();
 
+    this.birdEggs.forEach(
+      birdEgg => birdEgg.display()
+    );
+
+    this.nest.display();
+    
 
     this.checkKeys();
 

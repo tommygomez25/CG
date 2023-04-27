@@ -9,7 +9,7 @@ uniform sampler2D heightmap;
 uniform sampler2D altimetry;
 
 void main(){
-    
+
     vec4 color = texture2D(terrainTex, vTextureCoord);
     float height = texture2D(heightmap, vTextureCoord).r;
     vec4 altimetryColor = texture2D(altimetry, vec2(0, -height));

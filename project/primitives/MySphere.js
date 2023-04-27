@@ -7,11 +7,13 @@ export class MySphere extends CGFobject {
    * @param  {integer} slices - number of slices 
    * @param  {integer} stacks - number of stacks, from the center to the poles (half of sphere)
    */
-  constructor(scene, slices, stacks, inside = false) {
+  constructor(scene, slices, stacks, inside = false, bottomScaleFactor = 1, topScaleFactor = 1) {
     super(scene);
     this.stacks = stacks * 2; 
     this.slices = slices; 
     this.inside = inside;
+    this.bottomScaleFactor = bottomScaleFactor;
+    this.topScaleFactor = topScaleFactor;
 
     this.initBuffers();
   }
@@ -27,14 +29,19 @@ export class MySphere extends CGFobject {
 
     for (let lat = 0; lat <= this.stacks; lat++) {
       var theta = 0;
-
+        
       for (let long = 0; long <= this.slices; long++) {
         
         var x = Math.cos(theta) * Math.sin(phi);
         var y = Math.cos(phi);
         var z = Math.sin(-theta) * Math.sin(phi);
-        this.vertices.push(x, y, z);
-
+        if(lat >= this.stacks/2){
+          this.vertices.push(x, y*this.bottomScaleFactor, z);
+        }
+        else{
+          this.vertices.push(x, y*this.topScaleFactor, z);
+        }
+        
         
         if (lat < this.stacks && long < this.slices) {
             
@@ -51,7 +58,11 @@ export class MySphere extends CGFobject {
           
         }
         if(!this.inside){
-          this.normals.push(x, y, z);
+          if(lat <= this.stacks/2 && this.topScaleFactor == -1){
+            this.normals.push(-x, y, -z);
+          }else{
+            this.normals.push(x, y, z);
+          }
         }
         else{
           this.normals.push(-x, -y, -z);
@@ -64,7 +75,7 @@ export class MySphere extends CGFobject {
       phi += Math.PI / this.stacks;
     }
 
-
+    
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();
   }

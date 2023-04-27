@@ -25,6 +25,7 @@ export class MyBird extends CGFobject {
     this.wingVelocity = 0.001
     this.orientation = orientation
     this.position = position
+    this.counter = 0
     
     this.offset = 0
     this.wingOffset = 0.0005
@@ -42,6 +43,7 @@ export class MyBird extends CGFobject {
 
     this.previousLeftWingAngle = 0
     this.previousRightWingAngle = 0
+
   }
 
   update(t){
@@ -59,11 +61,31 @@ export class MyBird extends CGFobject {
     //this.updateWingsAngle(t)
   }
 
+  
   updateHeight(t) {
+  
     let amplitude = 1
+    let offset = this.initialPosition[1]
+    let distanceToGround = 10
+
+    if (this.scene.clickedP) {
+      const elapsedTime = t - this.scene.pTime;
+      if (elapsedTime < 1000) { // bird is going down
+        offset = this.initialPosition[1] - distanceToGround * (elapsedTime / 1000)
+      }
+      else if (elapsedTime < 2000) { // bird is going up
+        console.log('aqui')
+        offset = this.initialPosition[1] - distanceToGround * ((2000 - elapsedTime) / 1000)
+      }
+      else {
+        this.scene.clickedP = false
+      }
+    }
+    
     let period = 1
     let b = 2 * Math.PI / period
-    this.y = amplitude * Math.sin(b * (t/1000)) + this.initialPosition[1] // t divides by 1000 to convert from milliseconds to seconds
+    this.y = amplitude * Math.sin(b * (t/1000)) + offset // t divides by 1000 to convert from milliseconds to seconds
+    
   }
 
   updateWingsAngle(t) {
