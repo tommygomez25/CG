@@ -22,6 +22,8 @@ export class MyBird extends CGFobject {
     this.setTail()
 
     this.velocity = velocity
+    this.yAmplitude = 1
+    this.yPeriod = 1
     this.wingVelocity = 0.001
     this.orientation = orientation
     this.position = position
