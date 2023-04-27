@@ -85,6 +85,7 @@ export class MyScene extends CGFscene {
     if(this.previousTime != 0){
       var deltaTime = t - this.previousTime;
       this.bird.update(deltaTime);
+      this.bird.updateWingsAngle(deltaTime)
     }
     this.previousTime = t;
     
@@ -93,7 +94,6 @@ export class MyScene extends CGFscene {
    }
    var elapsedTime = t - this.startTime;
     this.bird.updateHeight(elapsedTime)
-    this.bird.updateWingsAngle(deltaTime)
   }
 
   checkKeys() {

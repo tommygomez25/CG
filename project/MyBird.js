@@ -67,7 +67,7 @@ export class MyBird extends CGFobject {
   }
 
   updateWingsAngle(t) {
-    let amplitude = Math.PI / 4
+    let amplitude = Math.PI / 6
     let period = 1
 
     t = t / 1000 
@@ -172,7 +172,7 @@ export class MyBird extends CGFobject {
     this.wingTexture = new CGFtexture(this.scene,"./images/birdTexture.jpg")
     this.wingAppearance.setTexture(this.wingTexture)
     this.wingAppearance.setTextureWrap('TEXTURE_WRAP','TEXTURE_WRAP')
-
+    
     this.leftWing = new MyBirdWing(this.scene, this.wingAppearance, 0);
     this.rightWing = new MyBirdWing(this.scene, this.wingAppearance, 1);
   }
@@ -204,9 +204,21 @@ export class MyBird extends CGFobject {
       this.leftEye.display();
       this.rightEye.display();
       this.beak.display();
-      this.leftWing.display();
-      this.rightWing.display();
       this.tail.display();
+
+      this.scene.pushMatrix();
+      this.scene.translate(1.5,0.1,0.45)
+      this.scene.rotate(this.leftWing.angle,1,0,0)
+      this.scene.translate(-1.5,-0.1,-0.45)
+      this.leftWing.display();
+      this.scene.popMatrix();
+
+      this.scene.pushMatrix();
+      this.scene.translate(1.5,0.1,-0.45)
+      this.scene.rotate(this.rightWing.angle,1,0,0)
+      this.scene.translate(-1.5,-0.1,0.45)
+      this.rightWing.display();
+      this.scene.popMatrix();
 
       this.scene.popMatrix();
   }
