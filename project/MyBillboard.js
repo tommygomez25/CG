@@ -3,18 +3,24 @@ import { MyQuad } from './primitives/MyQuad.js';
 
 export class MyBillboard extends CGFobject {
   
-  constructor(scene,x=0,y=0,z=0) {
+  constructor(scene,texture,x=0,y=0,z=0,scale=1) {
     super(scene);
-    /*
+    
     this.texture = texture;
-    this.billboardAppearance = new CGFappearance(this.scene);
-    this.billboardAppearance.setEmission(1,1,1,1)
-    this.billboardAppearance.setTexture(this.texture);
-    */
+    this.appearence = new CGFappearance(this.scene);
+    this.appearence.setAmbient(0.1, 0.1, 0.1, 1);
+    this.appearence.setDiffuse(0.9, 0.9, 0.9, 1);
+    this.appearence.setSpecular(0.1, 0.1, 0.1, 1);
+    this.appearence.setShininess(10.0);
+    this.appearence.setTexture(this.texture);
+    this.appearence.setTextureWrap('REPEAT', 'REPEAT');
+
+    
     this.initBuffers();
     this.x = x
     this.y = y
     this.z = z
+    this.scale = scale
   }
 
   initBuffers() {
@@ -46,6 +52,11 @@ export class MyBillboard extends CGFobject {
     this.scene.translate(this.x, this.y, this.z);
     this.scene.rotate(angle, rotationAxis[0], rotationAxis[1], rotationAxis[2]);
 
+    this.scene.translate(0,-0.5,0) // translate back to its place
+    this.scene.scale(this.scale,this.scale,this.scale) // scale in origin
+    this.scene.translate(0, 0.5, 0); // translate to origin
+
+    this.appearence.apply();
     this.billboard.display();
 
     this.scene.popMatrix();
@@ -59,6 +70,5 @@ export class MyBillboard extends CGFobject {
   disableNormalViz() {
     this.billboard.disableNormalViz();
   }
-  
 
 }

@@ -5,6 +5,8 @@ import { MyPanorama } from "./MyPanorama.js";
 import { MyBird } from "./MyBird.js";
 import { MyTerrain } from "./MyTerrain.js";
 import { MyBillboard } from "./MyBillboard.js";
+import { MyTreeGroupPatch } from "./MyTreeGroupPatch.js";
+import { MyTreeRowPatch } from "./MyTreeRowPatch.js";
 
 /**
  * MyScene
@@ -35,11 +37,6 @@ export class MyScene extends CGFscene {
 
     this.panoramaTexture = new CGFtexture(this, 'images/panorama4.jpg');
 
-    this.treeBillboardTexture = new CGFtexture(this, 'images/billboardtree.png');
-    this.treeBillboardAppearance = new CGFappearance(this);
-    this.treeBillboardAppearance.setTexture(this.treeBillboardTexture);
-    this.treeBillboardAppearance.setTextureWrap('REPEAT', 'REPEAT');
-
     //Initialize scene objects
     this.axis = new CGFaxis(this);
     this.panoramSphere = new MyPanorama(this, this.panoramaTexture);
@@ -47,8 +44,10 @@ export class MyScene extends CGFscene {
     this.bird = new MyBird(this,0,0,[0,3,0]);
 
     this.terrain = new MyTerrain(this);
+    
+    this.groupTree = new MyTreeGroupPatch(this);
 
-    this.billboard = new MyBillboard(this,1,1,1)
+    this.rowTree = new MyTreeRowPatch(this);
 
     //Objects connected to MyInterface
     this.displayAxis = true;
@@ -152,25 +151,19 @@ export class MyScene extends CGFscene {
 
     this.panoramSphere.display();
 
+    //this.groupTree.display();
+
+    this.rowTree.display();
+
     this.pushMatrix();
     this.translate(-0.4,0,0);
     this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor)
     //this.bird.display();
     this.popMatrix();
 
-    this.pushMatrix();
-    this.treeBillboardAppearance.apply();
-    this.billboard.display();
-    this.popMatrix();
 
     this.checkKeys();
 
-    if (this.displayNormals) {
-      this.billboard.enableNormalViz();
-    }
-    else {
-      this.billboard.disableNormalViz();
-    }
     // ---- END Primitive drawing section
   }
 }
