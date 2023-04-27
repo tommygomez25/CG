@@ -63,25 +63,28 @@ export class MyBird extends CGFobject {
   }
 
   updateHeight(t) {
+    this.counter++;
     let b = 2 * Math.PI / this.yPeriod
-    this.yAmplitude !== 1 ? this.counter += 1 : this.counter = 0
-    let offset = this.yAmplitude === 1 ? this.initialPosition[1] : -80
+    let offset = this.yAmplitude == 1 ? this.initialPosition[1] : -10
     const targetY = this.yAmplitude * Math.sin(b * (t/1000)) + offset; // t divides by 1000 to convert from milliseconds to seconds
-
+  
+    // Calculate the current y position using interpolation
     const delta = targetY - this.y;
-    const maxDelta = 0.51; // Adjust this value to control the speed of the interpolation
+    const maxDelta = 0.1; // Adjust this value to control the speed of the interpolation
     const newY = this.y + Math.sign(delta) * Math.min(maxDelta, Math.abs(delta));
 
     // Update the object's position
     this.y = newY;
     if(this.counter >= 120){
+      this.counter = 0
       this.yAmplitude = 1
       this.yPeriod = 1
-      this.counter = 0
     }
   }
 
+
   goDown(amplitude, period){
+    this.counter = 0
     this.yAmplitude = amplitude
     this.yPeriod = period    
   }

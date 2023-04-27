@@ -88,8 +88,8 @@ export class MyScene extends CGFscene {
       1.5,
       0.1,
       1000,
-      vec3.fromValues(20, -17, 50),
-      vec3.fromValues(0, 0, 0)
+      vec3.fromValues(20, -15, 30),
+      vec3.fromValues(-0.4,-15,20)
     );
   }
   setDefaultAppearance() {
@@ -142,7 +142,7 @@ export class MyScene extends CGFscene {
     if (this.gui.isKeyPressed("KeyP")) {
       keysPressed = true;
       if(this.bird.y > -5){
-        this.bird.goDown(20,2);
+        this.bird.goDown(5,2);
       }
       
     }
@@ -174,7 +174,7 @@ export class MyScene extends CGFscene {
     this.rowTree.display();
 
     this.pushMatrix();
-    this.translate(-0.4,0,0);
+    this.translate(-0.4,-15,20);
     this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor)
     this.bird.display();
     this.popMatrix();
