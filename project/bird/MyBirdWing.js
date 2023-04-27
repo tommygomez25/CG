@@ -21,15 +21,14 @@ export class MyBirdWing extends CGFobject {
 
   display() {
     this.scene.pushMatrix();
-    console.log('angle: ' + this.angle)
 
     if (this.side == 0) {
-        this.scene.rotate(this.angle,1,0,0)
+        //this.scene.rotate(this.angle,1,0,0)
         this.scene.translate(1.5, 0.3, 0.95);
         this.scene.rotate(-Math.PI/2 - Math.PI/10, 1, 0,0)
     }
     else {
-        this.scene.rotate(this.angle,1,0,0)
+        //this.scene.rotate(this.angle,1,0,0)
         this.scene.translate(1.5,0.3, -0.95);
         this.scene.rotate(-Math.PI/2 + Math.PI/10, 1, 0,0)
     }    
@@ -41,13 +40,13 @@ export class MyBirdWing extends CGFobject {
     this.scene.pushMatrix();
 
     if (this.side == 0) {
-        this.scene.rotate(this.angle,1,0,0)
+        //this.scene.rotate(this.angle,1,0,0)
         this.scene.translate(2.0, -0.05, 2.29)
         this.scene.rotate(Math.PI/6, 1, 0,0)
         this.scene.rotate(Math.PI, 0, 1,0)
     }
     else {
-        this.scene.rotate(this.angle,1,0,0)
+        //this.scene.rotate(this.angle,1,0,0)
         this.scene.translate(1.0, 0.45, -1.42)
         this.scene.rotate(-Math.PI/6, 1, 0,0)
         this.scene.rotate(Math.PI/2, 0, 1,0)
