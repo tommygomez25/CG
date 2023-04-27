@@ -7,6 +7,9 @@ import { MyTerrain } from "./MyTerrain.js";
 import { MyBirdEgg } from "./MyBirdEgg.js";
 import { MyNest } from "./MyNest.js";
 import { MyBirdTail } from "./bird/MyBirdTail.js";
+import { MyBillboard } from "./MyBillboard.js";
+import { MyTreeGroupPatch } from "./MyTreeGroupPatch.js";
+import { MyTreeRowPatch } from "./MyTreeRowPatch.js";
 
 /**
  * MyScene
@@ -44,6 +47,10 @@ export class MyScene extends CGFscene {
     this.bird = new MyBird(this,0,0,[0,3,0]);
 
     this.terrain = new MyTerrain(this);
+    
+    this.groupTree = new MyTreeGroupPatch(this);
+
+    this.rowTree = new MyTreeRowPatch(this);
 
     this.birdEggs = [];
     
@@ -55,6 +62,7 @@ export class MyScene extends CGFscene {
 
     //Objects connected to MyInterface
     this.displayAxis = true;
+    this.displayNormals = true
     this.speedFactor = 0.3;
     this.scaleFactor = 0.3;
 
@@ -161,6 +169,10 @@ export class MyScene extends CGFscene {
 
     this.panoramSphere.display();
 
+    //this.groupTree.display();
+
+    this.rowTree.display();
+
     this.pushMatrix();
     this.translate(-0.4,0,0);
     this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor)
@@ -175,6 +187,7 @@ export class MyScene extends CGFscene {
     
 
     this.checkKeys();
+
     // ---- END Primitive drawing section
   }
 }
