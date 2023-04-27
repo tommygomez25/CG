@@ -4,6 +4,8 @@ import { MySphere } from "./primitives/MySphere.js";
 import { MyPanorama } from "./MyPanorama.js";
 import { MyBird } from "./MyBird.js";
 import { MyTerrain } from "./MyTerrain.js";
+import { MyBirdEgg } from "./MyBirdEgg.js";
+import { MyNest } from "./MyNest.js";
 
 /**
  * MyScene
@@ -42,6 +44,14 @@ export class MyScene extends CGFscene {
 
     this.terrain = new MyTerrain(this);
 
+    this.birdEggs = [];
+    
+    for(let i = 0; i < 5; i++){
+      this.birdEggs.push(new MyBirdEgg(this));
+    }
+
+    this.nest = new MyNest(this);
+
     //Objects connected to MyInterface
     this.displayAxis = true;
     this.speedFactor = 0.3;
@@ -69,7 +79,7 @@ export class MyScene extends CGFscene {
       1.5,
       0.1,
       1000,
-      vec3.fromValues(-5, 10, 15),
+      vec3.fromValues(20, -17, 50),
       vec3.fromValues(0, 0, 0)
     );
   }
@@ -141,15 +151,16 @@ export class MyScene extends CGFscene {
 
     this.terrain.display();
 
-    // this.pushMatrix();
-    // this.earthAppearance.apply();
-    // this.scale(10,10,10);
-    // this.sphere.display();
-    // this.popMatrix();
-
     this.panoramSphere.display();
 
     this.bird.display();
+
+    this.birdEggs.forEach(
+      birdEgg => birdEgg.display()
+    );
+
+    this.nest.display();
+    
 
     this.checkKeys();
     // ---- END Primitive drawing section
