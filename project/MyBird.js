@@ -69,8 +69,10 @@ export class MyBird extends CGFobject {
     let amplitude = 1
     let offset = this.initialPosition[1]
     let distanceToGround = 10
+    let period = 1
 
     if (this.scene.clickedP) {
+      period = 2
       const elapsedTime = t - this.scene.pTime;
       if (elapsedTime < 1000) { // bird is going down
         offset = this.initialPosition[1] - distanceToGround * (elapsedTime / 1000)
@@ -84,7 +86,7 @@ export class MyBird extends CGFobject {
       }
     }
     
-    let period = 1
+    
     let b = 2 * Math.PI / period
     this.y = amplitude * Math.sin(b * (t/1000)) + offset // t divides by 1000 to convert from milliseconds to seconds
     

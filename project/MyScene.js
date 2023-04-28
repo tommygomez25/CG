@@ -196,7 +196,7 @@ export class MyScene extends CGFscene {
     this.rowTree.display();
 
     this.pushMatrix();
-    this.translate(-0.4,-15,20);
+    this.translate(-0.4,-16,20);
     this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor)
     this.bird.display();
     this.popMatrix();
