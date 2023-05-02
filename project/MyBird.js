@@ -46,6 +46,8 @@ export class MyBird extends CGFobject {
     this.previousLeftWingAngle = 0
     this.previousRightWingAngle = 0
 
+    this.egg = null
+
   }
 
   update(t){
@@ -78,7 +80,6 @@ export class MyBird extends CGFobject {
         offset = this.initialPosition[1] - distanceToGround * (elapsedTime / 1000)
       }
       else if (elapsedTime < 2000) { // bird is going up
-        console.log('aqui')
         offset = this.initialPosition[1] - distanceToGround * ((2000 - elapsedTime) / 1000)
       }
       else {
@@ -217,13 +218,25 @@ export class MyBird extends CGFobject {
     this.tail = new MyBirdTail(this.scene, this.tailAppearance);
   }
 
-  display() {
+  pickEgg(egg){
+    this.egg = egg;
+  }
+
+  display(scaleFactor) {
+    
       this.scene.pushMatrix();
-      //console.log(this.t)
 
       //this.scene.translate(0, Math.sin(this.offset) ,0)
+      
       this.scene.translate(this.x, this.y, this.z)
+      if(this.egg != null){
+        this.egg.display();
+      }
+      this.scene.scale(scaleFactor,scaleFactor,scaleFactor)
+      
       this.scene.rotate(this.orientation, 0, 1, 0)
+
+      
 
       this.head.display();
       this.body.display();

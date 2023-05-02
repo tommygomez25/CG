@@ -10,6 +10,7 @@ export class MyBirdEgg extends CGFobject {
         this.y = -18.65;
         this.z = this.getRandomArbitrary(20,80);
         this.angle = this.getRandomArbitrary(-90, 90);
+        this.isTaken = false;
 
         this.initMaterials(scene);
     }
@@ -25,11 +26,26 @@ export class MyBirdEgg extends CGFobject {
     }
     display(){
         this.scene.pushMatrix();
-        this.scene.translate(this.x,this.y,this.z);
-        this.scene.scale(0.3, 0.3, 0.3);
-        this.scene.rotate(this.angle * Math.PI / 180, 1, 0, 0);
+        if(this.isTaken){
+            this.scene.translate(0, -0.3, 0)
+            this.scene.scale(0.15, 0.15, 0.15);
+            this.scene.rotate(Math.PI/2, 0, 0, 1);
+        }else{
+            this.scene.translate(this.x,this.y,this.z);
+            this.scene.scale(0.3, 0.3, 0.3);
+            this.scene.rotate(this.angle * Math.PI / 180, 1, 0, 0);
+        }
         this.eggTex.apply();
         this.sphere.display();
         this.scene.popMatrix();
     }
+
+    nearBird(birdX, birdY, birdZ){
+        let maxDist = 3;
+        if(Math.abs(birdX - this.x) < maxDist && Math.abs(birdY - this.y) < 1.5 && Math.abs(birdZ - this.z) < maxDist){
+            return true;
+        }
+        return false;
+    }
+
 }

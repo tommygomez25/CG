@@ -44,7 +44,7 @@ export class MyScene extends CGFscene {
     this.axis = new CGFaxis(this);
     this.panoramSphere = new MyPanorama(this, this.panoramaTexture);
 
-    this.bird = new MyBird(this,0,0,[0,3,0]);
+    this.bird = new MyBird(this,0,0,[-0.4,-8,20]); // -0.4,-16,20
 
     this.terrain = new MyTerrain(this);
     
@@ -124,6 +124,16 @@ export class MyScene extends CGFscene {
     }
    }
    this.bird.updateHeight(elapsedTime);
+   if(this.bird.egg == null){
+    // iterate this.birdEggs and call nearBird
+    for(let i = 0; i < this.birdEggs.length; i++){
+      if(this.birdEggs[i].nearBird(this.bird.x,this.bird.y, this.bird.z)){ // -0.4,-16,20
+        this.bird.pickEgg(this.birdEggs[i])
+        this.birdEggs[i].isTaken = true;
+        break;
+      }
+    }
+   }
 
    /*
    if (this.gui.isKeyPressed("KeyP")) {
@@ -195,19 +205,18 @@ export class MyScene extends CGFscene {
 
     this.rowTree.display();
 
-    this.pushMatrix();
-    this.translate(-0.4,-16,20);
-    this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor)
-    this.bird.display();
-    this.popMatrix();
+    this.bird.display(this.scaleFactor);
 
     this.birdEggs.forEach(
-      birdEgg => birdEgg.display()
+      (birdEgg) => {
+        if(!birdEgg.isTaken){
+          birdEgg.display();
+        }        
+      }
     );
 
     this.nest.display();
     
-
     this.checkKeys();
 
     // ---- END Primitive drawing section

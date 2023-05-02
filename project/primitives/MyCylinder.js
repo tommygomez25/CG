@@ -87,7 +87,6 @@ export class MyCylinder extends CGFobject {
             }
         }
 
-    console.log(this.vertices)
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();
 }
