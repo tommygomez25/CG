@@ -134,6 +134,7 @@ export class MyBird extends CGFobject {
     this.orientation = 0
     this.velocity = 0
     this.offset = 0
+    this.wingVelocity = 0.001
   }
 
 
