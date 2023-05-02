@@ -22,8 +22,6 @@ export class MyBird extends CGFobject {
     this.setTail()
 
     this.velocity = velocity
-    this.yAmplitude = 1
-    this.yPeriod = 1
     this.wingVelocity = 0.001
     this.orientation = orientation
     this.position = position
@@ -39,7 +37,9 @@ export class MyBird extends CGFobject {
     this.rotationLeft = false
     this.rotationRight = false
     this.maxVelocity = 0.5
+    this.minVelocity = 0
     this.maxWingVelocity = 0.5
+    this.minWingVelocity = 0.001
     this.maxHeight = 5
     this.minHeight = 0
 
@@ -51,6 +51,8 @@ export class MyBird extends CGFobject {
   }
 
   update(t){
+    this.velocity = Math.max(Math.min(this.velocity, this.maxVelocity),this.minVelocity)
+
     this.offset += this.velocity * t;
     this.wingOffset += this.wingVelocity * t;
     this.x += this.offset * Math.cos(this.orientation) * (-1) / 100
@@ -96,6 +98,8 @@ export class MyBird extends CGFobject {
   updateWingsAngle(t) {
     let amplitude = Math.PI / 6
     let period = 1
+
+    this.wingVelocity= Math.max(Math.min(this.wingVelocity, this.maxWingVelocity),this.minWingVelocity)
 
     t = t / 1000 
     let phase = (this.wingOffset + (this.wingVelocity/5) * t) / period
