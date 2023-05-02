@@ -222,6 +222,19 @@ export class MyBird extends CGFobject {
     this.egg = egg;
   }
 
+  dropEgg(nest){
+    let maxDist = 3;
+    let found = false;
+    if(Math.abs(nest.x - this.x) < maxDist && Math.abs(nest.y - this.y) < 1.5 && Math.abs(nest.z - this.z) < maxDist){
+        found = true;
+    }
+    if(found){
+      nest.addEgg(this.egg);
+      this.egg = null;
+    }
+    
+  }
+
   display(scaleFactor) {
     
       this.scene.pushMatrix();

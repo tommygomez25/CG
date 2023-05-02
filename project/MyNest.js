@@ -9,6 +9,13 @@ export class MyNest extends CGFobject {
         this.x = 20;
         this.y = -18;
         this.z = 50;
+        this.eggPos = [];
+        
+        this.eggPos.push({position: [20, -18,5, 54], taken: false});
+        this.eggPos.push({position: [24, -18,5, 50], taken: false});
+        this.eggPos.push({position: [24, -18,5, 54], taken: false});
+        this.eggPos.push({position: [20, -18,5, 50], taken: false});
+        
 
         this.initMaterials(scene);
     }
@@ -24,5 +31,17 @@ export class MyNest extends CGFobject {
         this.eggTex.apply();
         this.sphere.display();
         this.scene.popMatrix();
+    }
+
+    addEgg(egg){
+        for(let i = 0; i < this.eggPos.length; i++){
+            if(!this.eggPos[i].taken){
+                egg.x = this.eggPos[i].position[0];
+                egg.y = this.eggPos[i].position[1];
+                egg.z = this.eggPos[i].position[2];
+                this.eggPos[i].taken = true;
+                break;
+            }
+        }
     }
 }

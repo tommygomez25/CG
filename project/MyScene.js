@@ -54,7 +54,7 @@ export class MyScene extends CGFscene {
 
     this.birdEggs = [];
     
-    for(let i = 0; i < 5; i++){
+    for(let i = 0; i < 4; i++){
       this.birdEggs.push(new MyBirdEgg(this));
     }
 
@@ -169,6 +169,10 @@ export class MyScene extends CGFscene {
     if (this.gui.isKeyPressed("KeyR")) {
       keysPressed = true;
       this.bird.reset();
+    }
+    if (this.gui.isKeyPressed("KeyO")){
+      keysPressed = true;
+      this.bird.dropEgg(this.nest);
     }
     /*
     if (this.gui.isKeyPressed("KeyP")) {

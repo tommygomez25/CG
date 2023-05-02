@@ -41,6 +41,7 @@ export class MyBirdEgg extends CGFobject {
     }
 
     nearBird(birdX, birdY, birdZ){
+        if(this.isTaken) return false;
         let maxDist = 3;
         if(Math.abs(birdX - this.x) < maxDist && Math.abs(birdY - this.y) < 1.5 && Math.abs(birdZ - this.z) < maxDist){
             return true;
