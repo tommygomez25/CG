@@ -92,7 +92,7 @@ export class MyScene extends CGFscene {
       0.1,
       1000,
       vec3.fromValues(20, -15, 30),
-      vec3.fromValues(-0.4,-15,20)
+      vec3.fromValues(-0.4,-8,20)
     );
   }
   setDefaultAppearance() {
@@ -149,7 +149,7 @@ export class MyScene extends CGFscene {
   checkKeys() {
     var text = "Keys pressed: ";
     var keysPressed = false;
-    // Check for key codes e.g. in https://keycode.info/
+    
     if (this.gui.isKeyPressed("KeyW")) {
       keysPressed = true;
       this.bird.accelerate(1)
