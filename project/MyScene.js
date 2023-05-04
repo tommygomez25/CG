@@ -44,7 +44,7 @@ export class MyScene extends CGFscene {
     this.axis = new CGFaxis(this);
     this.panoramSphere = new MyPanorama(this, this.panoramaTexture);
 
-    this.bird = new MyBird(this,0,0,[-0.4,-8,20]); // -0.4,-16,20
+    this.bird = new MyBird(this,0,0,[30,-8,60]); // -0.4,-16,20
 
     this.terrain = new MyTerrain(this);
     
@@ -54,7 +54,7 @@ export class MyScene extends CGFscene {
 
     this.birdEggs = [];
     
-    for(let i = 0; i < 5; i++){
+    for(let i = 0; i < 4; i++){
       this.birdEggs.push(new MyBirdEgg(this));
     }
 
@@ -91,8 +91,8 @@ export class MyScene extends CGFscene {
       1.5,
       0.1,
       1000,
-      vec3.fromValues(20, -15, 30),
-      vec3.fromValues(-0.4,-8,20)
+      vec3.fromValues(30, -5, 70),
+      vec3.fromValues(30,-8,60)
     );
   }
   setDefaultAppearance() {
@@ -103,7 +103,8 @@ export class MyScene extends CGFscene {
   }
 
   update(t){
-    
+    //this.camera.target = vec3.fromValues(this.bird.x,this.bird.y,this.bird.z);
+    //this.camera.position = vec3.fromValues(this.bird.x + 5,this.bird.y + 5,this.bird.z);
     if(this.previousTime != 0){
       var deltaTime = t - this.previousTime;
       this.bird.update(deltaTime);
@@ -135,6 +136,15 @@ export class MyScene extends CGFscene {
     }
    }
 
+   for(let i = 0; i < this.birdEggs.length; i++){
+    if(this.birdEggs[i].isFalling){
+      console.log('coords', this.birdEggs[i].x, this.birdEggs[i].y, this.birdEggs[i].z)
+      this.birdEggs[i].y -= 0.05;
+      if(this.birdEggs[i].y <= -18.5)
+        this.birdEggs[i].isFalling = false;
+    }
+   }
+
    /*
    if (this.gui.isKeyPressed("KeyP")) {
     //keysPressed = true;
@@ -152,11 +162,11 @@ export class MyScene extends CGFscene {
     
     if (this.gui.isKeyPressed("KeyW")) {
       keysPressed = true;
-      this.bird.accelerate(1)
+      this.bird.accelerate(0.1)
     }
     if (this.gui.isKeyPressed("KeyS")) {
       keysPressed = true;
-      this.bird.accelerate(-1)
+      this.bird.accelerate(-0.1)
     }
     if (this.gui.isKeyPressed("KeyA")) {
       keysPressed = true;
@@ -169,6 +179,10 @@ export class MyScene extends CGFscene {
     if (this.gui.isKeyPressed("KeyR")) {
       keysPressed = true;
       this.bird.reset();
+    }
+    if (this.gui.isKeyPressed("KeyO")){
+      keysPressed = true;
+      this.bird.dropEgg(this.nest);
     }
     /*
     if (this.gui.isKeyPressed("KeyP")) {
