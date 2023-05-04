@@ -70,7 +70,7 @@ export class MyBird extends CGFobject {
   
   updateHeight(t) {
   
-    let amplitude = 1
+    let amplitude = 0.3
     let offset = this.initialPosition[1]
     let distanceToGround = 10
     let period = 1
@@ -228,13 +228,14 @@ export class MyBird extends CGFobject {
   }
 
   dropEgg(nest){
-    let maxDist = 3;
+    let maxDist = 4;
     let found = false;
-    if(Math.abs(nest.x - this.x) < maxDist && Math.abs(nest.y - this.y) < 1.5 && Math.abs(nest.z - this.z) < maxDist){
+    if(Math.abs(nest.x - this.x) < maxDist && Math.abs(nest.z - this.z) < maxDist){
         found = true;
     }
     if(found){
-      nest.addEgg(this.egg);
+      this.egg.isFalling = true;
+      nest.addEgg(this.egg, this);
       this.egg = null;
     }
     
