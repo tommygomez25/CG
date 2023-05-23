@@ -44,7 +44,7 @@ export class MyScene extends CGFscene {
     this.axis = new CGFaxis(this);
     this.panoramSphere = new MyPanorama(this, this.panoramaTexture);
 
-    this.bird = new MyBird(this,0,0,[35,-8,50]); // -0.4,-16,20
+    this.bird = new MyBird(this,0,0,[35,-10,50]); // -0.4,-16,20
 
     this.terrain = new MyTerrain(this);
     
@@ -60,8 +60,13 @@ export class MyScene extends CGFscene {
     for(let i = 0; i < 4; i++){
       this.birdEggs.push(new MyBirdEgg(this));
       this.birdEggs[i].targetPosition = [this.nest.x,this.nest.y,this.nest.z]
-      console.log(this.birdEggs[i].x, this.birdEggs[i].y, this.birdEggs[i].z)
     }
+    this.birdEggs.push(new MyBirdEgg(this));
+    this.birdEggs[this.birdEggs.length - 1].x = this.bird.x;
+     this.birdEggs[this.birdEggs.length - 1].y = -18.65;
+     this.birdEggs[this.birdEggs.length - 1].z = this.bird.z;
+     this.birdEggs[this.birdEggs.length - 1].targetPosition = [this.nest.x,this.nest.y,this.nest.z]
+
     /*
     this.birdEggs[0].isTaken = true;
     this.bird.egg = this.birdEggs[0];
@@ -102,8 +107,8 @@ export class MyScene extends CGFscene {
       1.5,
       0.1,
       1000,
-      vec3.fromValues(30, -5, 70),
-      vec3.fromValues(30,-8,60)
+      vec3.fromValues(30, -18, 70),
+      vec3.fromValues(30,-18,60)
     );
 
   }
@@ -142,7 +147,7 @@ export class MyScene extends CGFscene {
    if(this.bird.egg == null){
     // iterate this.birdEggs and call nearBird
     for(let i = 0; i < this.birdEggs.length; i++){
-      if(this.birdEggs[i].nearBird(this.bird.x,this.bird.y, this.bird.z && !this.birdEggs[i].isTaken) ){ // -0.4,-16,20
+      if(this.birdEggs[i].nearBird(this.bird.x,this.bird.y, this.bird.z) && !this.birdEggs[i].isTaken && !this.birdEggs[i].isFalling){ // -0.4,-16,20
         this.bird.pickEgg(this.birdEggs[i])
         this.birdEggs[i].isTaken = true;
         break;
@@ -155,6 +160,8 @@ export class MyScene extends CGFscene {
         this.birdEggs[i].update(elapsedTime, this.bird.x, this.bird.y, this.bird.z)     
       }
    }
+
+
 
    if (this.gui.isKeyPressed("KeyO")) {
     if(!this.clickedO) {

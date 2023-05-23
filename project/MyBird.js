@@ -76,7 +76,7 @@ export class MyBird extends CGFobject {
   
     let amplitude = 0.3
     let offset = this.initialPosition[1]
-    let distanceToGround = 10
+    let distanceToGround = this.initialPosition[1] - (-18.65)
     let period = 1
 
     if (this.scene.clickedP) {
@@ -232,7 +232,6 @@ export class MyBird extends CGFobject {
   }
 
   dropEgg() {
-  
     if (this.egg) {
       this.egg.isFalling = true;
       this.egg.isTaken = false;

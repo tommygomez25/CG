@@ -41,7 +41,6 @@ export class MyNest extends CGFobject {
                 egg.x = this.eggPos[i].position[0];
                 egg.y = bird.y - 0.3;
                 egg.z = this.eggPos[i].position[2];
-                console.log('drop coords: ', egg.x, egg.y, egg.z)
                 this.eggPos[i].taken = true;
                 break;
             }
