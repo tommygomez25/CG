@@ -4,12 +4,16 @@ import { MyBillboard } from './MyBillboard.js';
 
 export class MyTreeRowPatch extends CGFobject {
   
-  constructor(scene) {
+  constructor(scene,startX,startZ,y) {
     super(scene);
 
     this.treeTextures = [];
     this.trees = [];
     this.treeDimensions = [1,2,3];
+
+    this.startX = startX;
+    this.startZ = startZ;
+    this.y = y;
 
     this.createTextures();
     this.createTrees();
@@ -33,9 +37,9 @@ export class MyTreeRowPatch extends CGFobject {
         let spacingZ = 3;
 
         for (let i = 0; i < 6; i++) {
-                let x = i * spacingX  - spacingX * 2.5
-                let z = Math.random() * spacingZ - spacingZ * 0.5
-                let y = 0.5;
+                let x = this.startX + i * spacingX  - spacingX * 2.5
+                let z = this.startZ + Math.random() * spacingZ - spacingZ * 0.5
+                let y = this.y
                 let tree = new MyBillboard(this.scene, this.treeTextures[Math.floor(Math.random() * this.treeTextures.length)], x, y, z,this.treeDimensions[Math.floor(Math.random() * this.treeDimensions.length)]);
                 this.trees.push(tree);
         }

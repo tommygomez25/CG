@@ -58,6 +58,10 @@ export class MyBird extends CGFobject {
     this.x += this.offset * Math.cos(this.orientation) * (-1) / 100
     this.z += this.offset * Math.sin(this.orientation) / 100
 
+    //console.log('x',this.x)
+    //console.log('z',this.z)
+
+
     if (this.previousOrientation = this.orientation) {
       this.rotationLeft = false
       this.rotationRight = false
@@ -227,19 +231,16 @@ export class MyBird extends CGFobject {
     this.egg = egg;
   }
 
-  dropEgg(nest){
-    let maxDist = 4;
-    let found = false;
-    if(Math.abs(nest.x - this.x) < maxDist && Math.abs(nest.z - this.z) < maxDist){
-        found = true;
-    }
-    if(found){
+  dropEgg() {
+  
+    if (this.egg) {
       this.egg.isFalling = true;
-      nest.addEgg(this.egg, this);
+      this.egg.isTaken = false;
       this.egg = null;
     }
-    
   }
+    
+  
 
   display(scaleFactor) {
     

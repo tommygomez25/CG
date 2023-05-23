@@ -44,21 +44,29 @@ export class MyScene extends CGFscene {
     this.axis = new CGFaxis(this);
     this.panoramSphere = new MyPanorama(this, this.panoramaTexture);
 
-    this.bird = new MyBird(this,0,0,[30,-8,60]); // -0.4,-16,20
+    this.bird = new MyBird(this,0,0,[35,0,50]); // -0.4,-16,20
 
     this.terrain = new MyTerrain(this);
     
-    this.groupTree = new MyTreeGroupPatch(this);
+    this.groupTree = new MyTreeGroupPatch(this, 0, 40, -18.5);
 
-    this.rowTree = new MyTreeRowPatch(this);
+    this.rowTree = new MyTreeRowPatch(this, 20, 30, -18.5);
+
+    this.nest = new MyNest(this);
 
     this.birdEggs = [];
     
     for(let i = 0; i < 4; i++){
       this.birdEggs.push(new MyBirdEgg(this));
+      this.birdEggs[i].targetPosition = [this.nest.x,this.nest.y,this.nest.z]
+      console.log(this.birdEggs[i].x, this.birdEggs[i].y, this.birdEggs[i].z)
     }
 
-    this.nest = new MyNest(this);
+    this.birdEggs[0].isTaken = true;
+    this.bird.egg = this.birdEggs[0];
+    this.bird.egg.x = this.bird.x;
+    this.bird.egg.y = this.bird.y;
+    this.bird.egg.z = this.bird.z;
 
     //Objects connected to MyInterface
     this.displayAxis = true;
@@ -72,6 +80,7 @@ export class MyScene extends CGFscene {
     this.previousTime = 0;
 
     this.clickedP = false;
+    this.clickedO = false;
     this.pTime = 0;
 
   }
@@ -124,11 +133,13 @@ export class MyScene extends CGFscene {
       this.pTime = elapsedTime;
     }
    }
+
+
    this.bird.updateHeight(elapsedTime);
    if(this.bird.egg == null){
     // iterate this.birdEggs and call nearBird
     for(let i = 0; i < this.birdEggs.length; i++){
-      if(this.birdEggs[i].nearBird(this.bird.x,this.bird.y, this.bird.z)){ // -0.4,-16,20
+      if(this.birdEggs[i].nearBird(this.bird.x,this.bird.y, this.bird.z && !this.birdEggs[i].isTaken) ){ // -0.4,-16,20
         this.bird.pickEgg(this.birdEggs[i])
         this.birdEggs[i].isTaken = true;
         break;
@@ -137,11 +148,16 @@ export class MyScene extends CGFscene {
    }
 
    for(let i = 0; i < this.birdEggs.length; i++){
-    if(this.birdEggs[i].isFalling){
-      console.log('coords', this.birdEggs[i].x, this.birdEggs[i].y, this.birdEggs[i].z)
-      this.birdEggs[i].y -= 0.05;
-      if(this.birdEggs[i].y <= -18.5)
-        this.birdEggs[i].isFalling = false;
+      if (this.birdEggs[i].isTaken){
+        this.birdEggs[i].update(elapsedTime, this.bird.x, this.bird.y, this.bird.z)     
+      }
+   }
+
+   if (this.gui.isKeyPressed("KeyO")) {
+    if(!this.clickedO) {
+      this.clickedO = true;
+      this.oTime = t;
+      if (this.bird.egg != null) {this.bird.egg.initialTime = this.oTime}
     }
    }
 
@@ -182,16 +198,10 @@ export class MyScene extends CGFscene {
     }
     if (this.gui.isKeyPressed("KeyO")){
       keysPressed = true;
-      this.bird.dropEgg(this.nest);
-    }
-    /*
-    if (this.gui.isKeyPressed("KeyP")) {
-      keysPressed = true;
-      if(this.bird.y > -5){
-        this.bird.goDown(5,2);
+      if (this.bird.x <= 35 && this.bird.x >= 15 && this.bird.z >= 45 && this.bird.z <= 65){
+        this.bird.dropEgg();
       }
-    }*/
-    
+    }  
     
   }
 
@@ -215,7 +225,7 @@ export class MyScene extends CGFscene {
 
     this.panoramSphere.display();
 
-    //this.groupTree.display();
+    this.groupTree.display();
 
     this.rowTree.display();
 

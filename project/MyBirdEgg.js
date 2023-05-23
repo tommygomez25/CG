@@ -13,6 +13,11 @@ export class MyBirdEgg extends CGFobject {
         this.isFalling = false;
         this.isTaken = false;
         this.inNest = false;
+        this.velocity = 0;
+        this.orientation = 0;
+        this.initialTime = 0
+        this.vy = 0
+        this.targetPosition = [0,0,0]
 
         this.initMaterials(scene);
     }
@@ -36,9 +41,15 @@ export class MyBirdEgg extends CGFobject {
             this.scene.translate(this.x,this.y,this.z);
             this.scene.scale(0.15, 0.15, 0.15);
         }
+        else if (this.isFalling) {
+            this.drop()
+            this.scene.translate(this.x,this.y,this.z);
+            this.scene.scale(0.15, 0.15, 0.15);
+            this.scene.rotate(this.angle * Math.PI / 180, 1, 0, 0);
+        }
         else{
             this.scene.translate(this.x,this.y,this.z);
-            this.scene.scale(0.3, 0.3, 0.3);
+            this.scene.scale(0.15, 0.15, 0.15);
             this.scene.rotate(this.angle * Math.PI / 180, 1, 0, 0);
         }
         this.eggTex.apply();
@@ -54,5 +65,43 @@ export class MyBirdEgg extends CGFobject {
         }
         return false;
     }
+
+    update(t,bird_x,bird_y,bird_z){
+        this.x = bird_x
+        this.y = bird_y
+        this.z = bird_z
+    }
+
+      drop() {
+        const gravity = 9.8 *0.1
+        const now = new Date().getTime()
+        const t = (now - this.initialTime) / 1000
+
+        this.y -= this.vy * t + (gravity * t * t) /2
+        this.vy += gravity * t;
+
+        const dx = this.targetPosition[0] - this.x
+        const dy = this.targetPosition[1] - this.y
+        const dz = this.targetPosition[2] - this.z
+
+        const distance = Math.sqrt(dx * dx + dy * dy + dz * dz)
+        const direction = [dx / distance, dy / distance, dz / distance]
+
+        this.x += direction[0] 
+        this.z += direction[2]
+
+        if (this.y <= this.targetPosition[1]) {
+            this.y = this.targetPosition[1]
+            this.x = this.targetPosition[0]
+            this.z = this.targetPosition[2]
+            this.inNest = true
+            this.isFalling = false
+            this.vy = 0
+            this.initialTime = 0
+            this.scene.clickedO = false
+        }
+
+      }
+      
 
 }

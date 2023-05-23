@@ -4,12 +4,15 @@ import { MyBillboard } from './MyBillboard.js';
 
 export class MyTreeGroupPatch extends CGFobject {
   
-  constructor(scene) {
+  constructor(scene,startX,startZ,y) {
     super(scene);
 
     this.treeTextures = [];
     this.trees = [];
     this.treeDimensions = [1,2,3];
+    this.startX = startX;
+    this.startZ = startZ;
+    this.y = y;
 
     this.createTextures();
     this.createTrees();
@@ -32,9 +35,9 @@ export class MyTreeGroupPatch extends CGFobject {
 
         for (let i = 0; i < 3; i++) {
             for (let j = 0; j < 3; j++) {
-                let x = i * 2 + Math.random() // * 2 to have 2 units between each tree
-                let z = j * 2 + Math.random()
-                let y = 0.5;
+                let x = this.startX + i * 2 + Math.random() // * 2 to have 2 units between each tree
+                let z = this.startZ + j * 2 + Math.random()
+                let y = this.y
                 let tree = new MyBillboard(this.scene, this.treeTextures[Math.floor(Math.random() * this.treeTextures.length)], x, y, z,this.treeDimensions[Math.floor(Math.random() * this.treeDimensions.length)]);
                 this.trees.push(tree);
             }
