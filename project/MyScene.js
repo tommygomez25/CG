@@ -44,7 +44,7 @@ export class MyScene extends CGFscene {
     this.axis = new CGFaxis(this);
     this.panoramSphere = new MyPanorama(this, this.panoramaTexture);
 
-    this.bird = new MyBird(this,0,0,[0,3,0]); // -0.4,-16,20
+    this.bird = new MyBird(this,0,0,[35,-8,50]); // -0.4,-16,20
 
     this.terrain = new MyTerrain(this);
     
@@ -102,10 +102,10 @@ export class MyScene extends CGFscene {
       1.5,
       0.1,
       1000,
-      vec3.fromValues(-5, 5, 5),
-      vec3.fromValues(0,0,0)
-      //vec3.fromValues(30,-8,60)
+      vec3.fromValues(30, -5, 70),
+      vec3.fromValues(30,-8,60)
     );
+
   }
   setDefaultAppearance() {
     this.setAmbient(0.2, 0.4, 0.8, 1.0);
@@ -238,12 +238,12 @@ export class MyScene extends CGFscene {
     this.birdEggs.forEach(
       (birdEgg) => {
         if(!birdEgg.isTaken){
-          //birdEgg.display();
+          birdEgg.display();
         }        
       }
     );
 
-    //this.nest.display();
+    this.nest.display();
     
     this.checkKeys();
 
