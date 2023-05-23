@@ -229,9 +229,9 @@ export class MyScene extends CGFscene {
     this.panoramSphere.display();
 
     
-    //this.groupTree.display();
+    this.groupTree.display();
 
-    //this.rowTree.display();
+    this.rowTree.display();
 
     this.bird.display(this.scaleFactor);
 
