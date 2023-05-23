@@ -97,11 +97,12 @@ export class MyScene extends CGFscene {
   }
   initCameras() {
     this.camera = new CGFcamera(
+      1.0,
       1.5,
-      0.1,
-      1000,
-      vec3.fromValues(30, -5, 70),
-      vec3.fromValues(30,-8,60)
+      500,
+      vec3.fromValues(50, 10, 15),
+      vec3.fromValues(0,0,0)
+      //vec3.fromValues(30,-8,60)
     );
   }
   setDefaultAppearance() {
@@ -221,10 +222,11 @@ export class MyScene extends CGFscene {
 
     // ---- BEGIN Primitive drawing section
 
-    this.terrain.display();
+    //this.terrain.display();
 
     this.panoramSphere.display();
 
+    /*
     this.groupTree.display();
 
     this.rowTree.display();
@@ -240,7 +242,7 @@ export class MyScene extends CGFscene {
     );
 
     this.nest.display();
-    
+    */
     this.checkKeys();
 
     // ---- END Primitive drawing section
