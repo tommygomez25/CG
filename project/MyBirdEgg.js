@@ -44,7 +44,6 @@ export class MyBirdEgg extends CGFobject {
             this.scene.scale(0.15, 0.15, 0.15);
         }
         else if (this.isFalling) {
-
             this.drop()
             this.scene.translate(this.x,this.y,this.z);
             this.scene.scale(0.15, 0.15, 0.15);

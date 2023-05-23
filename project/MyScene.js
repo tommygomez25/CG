@@ -50,7 +50,13 @@ export class MyScene extends CGFscene {
     
     this.groupTree = new MyTreeGroupPatch(this, 0, 40, -18.5);
 
+    this.groupTree2 = new MyTreeGroupPatch(this, 0, 50, -18.5);
+
+    this.groupTree3 = new MyTreeGroupPatch(this, 0, 60, -18.5);
+
     this.rowTree = new MyTreeRowPatch(this, 20, 30, -18.5);
+
+    this.rowTree2 = new MyTreeRowPatch(this, 20, 20, -18.5);
 
     this.nest = new MyNest(this);
 
@@ -107,7 +113,7 @@ export class MyScene extends CGFscene {
       1.5,
       0.1,
       1000,
-      vec3.fromValues(30, -18, 70),
+      vec3.fromValues(40, -13, 70),
       vec3.fromValues(30,-18,60)
     );
 
@@ -238,7 +244,13 @@ export class MyScene extends CGFscene {
     
     this.groupTree.display();
 
+    this.groupTree2.display();
+
+    this.groupTree3.display();
+
     this.rowTree.display();
+
+    this.rowTree2.display();
 
     this.bird.display(this.scaleFactor);
 
