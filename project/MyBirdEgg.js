@@ -23,7 +23,8 @@ export class MyBirdEgg extends CGFobject {
     }
 
     getRandomArbitrary(min, max) {
-        return Math.random() * (max - min) + min;
+        // return integer in [min,max]:
+        return Math.floor(Math.random() * (max - min) + min)
     }
 
     initMaterials(scene){
@@ -78,7 +79,7 @@ export class MyBirdEgg extends CGFobject {
         const gravity = 9.8 *0.1
         const now = new Date().getTime()
         const t = (now - this.initialTime) / 1000
-
+        console.log('t ',t)
         this.y -= this.vy * t + (gravity * t * t) /2
         this.vy += gravity * t;
         
@@ -101,6 +102,7 @@ export class MyBirdEgg extends CGFobject {
             this.vy = 0
             this.initialTime = 0
             this.scene.clickedO = false
+            this.scene.oTime = 0
         }
 
       }

@@ -65,13 +65,13 @@ export class MyScene extends CGFscene {
     
     for(let i = 0; i < 4; i++){
       this.birdEggs.push(new MyBirdEgg(this));
-      this.birdEggs[i].targetPosition = [this.nest.x,this.nest.y,this.nest.z]
+      this.birdEggs[i].targetPosition = [this.nest.eggPos[i].position[0],this.nest.eggPos[i].position[1],this.nest.eggPos[i].position[2]]
     }
     this.birdEggs.push(new MyBirdEgg(this));
     this.birdEggs[this.birdEggs.length - 1].x = this.bird.x;
-     this.birdEggs[this.birdEggs.length - 1].y = -18.65;
-     this.birdEggs[this.birdEggs.length - 1].z = this.bird.z;
-     this.birdEggs[this.birdEggs.length - 1].targetPosition = [this.nest.x,this.nest.y,this.nest.z]
+    this.birdEggs[this.birdEggs.length - 1].y = -18.65;
+    this.birdEggs[this.birdEggs.length - 1].z = this.bird.z;
+    this.birdEggs[this.birdEggs.length - 1].targetPosition = [this.nest.x,this.nest.y,this.nest.z]
 
     /*
     this.birdEggs[0].isTaken = true;
@@ -95,6 +95,7 @@ export class MyScene extends CGFscene {
     this.clickedP = false;
     this.clickedO = false;
     this.pTime = 0;
+    this.oTime = 0;
 
   }
   initLights() {
@@ -170,9 +171,10 @@ export class MyScene extends CGFscene {
 
 
    if (this.gui.isKeyPressed("KeyO")) {
+    this.oTime = t;
     if(!this.clickedO) {
       this.clickedO = true;
-      this.oTime = t;
+      
       if (this.bird.egg != null) {this.bird.egg.initialTime = this.oTime}
     }
    }
