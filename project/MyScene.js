@@ -224,7 +224,7 @@ export class MyScene extends CGFscene {
 
     // ---- BEGIN Primitive drawing section
 
-    //this.terrain.display();
+    this.terrain.display();
 
     this.panoramSphere.display();
 
