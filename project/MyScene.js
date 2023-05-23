@@ -44,7 +44,7 @@ export class MyScene extends CGFscene {
     this.axis = new CGFaxis(this);
     this.panoramSphere = new MyPanorama(this, this.panoramaTexture);
 
-    this.bird = new MyBird(this,0,0,[35,0,50]); // -0.4,-16,20
+    this.bird = new MyBird(this,0,0,[0,3,0]); // -0.4,-16,20
 
     this.terrain = new MyTerrain(this);
     
@@ -54,6 +54,7 @@ export class MyScene extends CGFscene {
 
     this.nest = new MyNest(this);
 
+    
     this.birdEggs = [];
     
     for(let i = 0; i < 4; i++){
@@ -61,12 +62,13 @@ export class MyScene extends CGFscene {
       this.birdEggs[i].targetPosition = [this.nest.x,this.nest.y,this.nest.z]
       console.log(this.birdEggs[i].x, this.birdEggs[i].y, this.birdEggs[i].z)
     }
-
+    /*
     this.birdEggs[0].isTaken = true;
     this.bird.egg = this.birdEggs[0];
     this.bird.egg.x = this.bird.x;
     this.bird.egg.y = this.bird.y;
     this.bird.egg.z = this.bird.z;
+    */
 
     //Objects connected to MyInterface
     this.displayAxis = true;
@@ -97,10 +99,10 @@ export class MyScene extends CGFscene {
   }
   initCameras() {
     this.camera = new CGFcamera(
-      1.0,
       1.5,
-      500,
-      vec3.fromValues(50, 10, 15),
+      0.1,
+      1000,
+      vec3.fromValues(-5, 5, 5),
       vec3.fromValues(0,0,0)
       //vec3.fromValues(30,-8,60)
     );
@@ -226,10 +228,10 @@ export class MyScene extends CGFscene {
 
     this.panoramSphere.display();
 
-    /*
-    this.groupTree.display();
+    
+    //this.groupTree.display();
 
-    this.rowTree.display();
+    //this.rowTree.display();
 
     this.bird.display(this.scaleFactor);
 
@@ -241,8 +243,8 @@ export class MyScene extends CGFscene {
       }
     );
 
-    this.nest.display();
-    */
+    //this.nest.display();
+    
     this.checkKeys();
 
     // ---- END Primitive drawing section
