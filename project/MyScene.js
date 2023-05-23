@@ -71,7 +71,7 @@ export class MyScene extends CGFscene {
     */
 
     //Objects connected to MyInterface
-    this.displayAxis = true;
+    this.displayAxis = false;
     this.displayNormals = true
     this.speedFactor = 0.3;
     this.scaleFactor = 0.3;
@@ -238,7 +238,7 @@ export class MyScene extends CGFscene {
     this.birdEggs.forEach(
       (birdEgg) => {
         if(!birdEgg.isTaken){
-          birdEgg.display();
+          //birdEgg.display();
         }        
       }
     );
